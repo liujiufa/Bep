@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import copy from "copy-to-clipboard";
 import { addMessage } from "../utils/tool";
-import { useWeb3React } from "@web3-react/core"; 
-import {Contracts} from "../web3"
+import { useWeb3React } from "@web3-react/core";
+import { Contracts } from "../web3";
 import { GetRefereeList } from "../API";
 import { truncateMiddle } from "../utils/truncateMiddle";
 
@@ -33,9 +33,9 @@ const Account = () => {
     addMessage(t("Copy successfully"));
   };
   const web3React = useWeb3React();
- 
+
   const token = useSelector((state: any) => state?.token);
-  const handleReceive = () => { 
+  const handleReceive = () => {
     // addMessage(t("Coming soon"));
     console.log(Contracts);
     // console.log(Contracts.example);
@@ -46,13 +46,13 @@ const Account = () => {
     // claimRewards(web3React.account)
   };
 
-  const [list, setList] = useState<any>([])
-  const handleGetRefereeList = async () => { 
-    const { data } = await GetRefereeList() 
-    setList(data)
-  }
-  useEffect( () => {
-    handleGetRefereeList()
+  const [list, setList] = useState<any>([]);
+  const handleGetRefereeList = async () => {
+    const { data } = await GetRefereeList();
+    setList(data);
+  };
+  useEffect(() => {
+    handleGetRefereeList();
   }, [token]);
 
   return (
@@ -62,14 +62,23 @@ const Account = () => {
       <div className="box3">
         <div className="title1">我的邀请链接：</div>
         <div className="box3-main">
-          <div className="box3-main-li" style={{border: 'none'}}>
-            <div className="box3-main-li-text" style={{padding: '12px 10px'}}>
-            <div style={{wordBreak:'break-all', padding: '0px 18px'}}>https://bep60.com/{web3React.account}/IDO</div>
-            </div> 
-          </div> 
+          <div className="box3-main-li" style={{ border: "none" }}>
+            <div className="box3-main-li-text" style={{ padding: "12px 10px" }}>
+              <div style={{ wordBreak: "break-all", padding: "0px 18px" }}>
+                {window.location.origin + "/" + web3React.account}
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="box3-submit" style={{margin: '34px auto 0px 18px'}} 
-        onClick={() => coppyUrl(`https://bep60.com/${web3React.account}/IDO`)}>复制</div>
+        <div
+          className="box3-submit"
+          style={{ margin: "34px auto 0px 18px" }}
+          onClick={() =>
+            coppyUrl(window.location.origin + "/" + web3React.account)
+          }
+        >
+          复制
+        </div>
       </div>
       <div className="box3">
         <div className="title1">推荐奖励</div>
@@ -127,9 +136,16 @@ const Account = () => {
             <div className="box3-main-li-num">1234</div>
           </div>
         </div>
-        <div className="box3-submit" onClick={() => {handleReceive()}}>领取奖励</div>
+        <div
+          className="box3-submit"
+          onClick={() => {
+            handleReceive();
+          }}
+        >
+          领取奖励
+        </div>
       </div>
-      <div style={{display: list.length > 0 ? 'block' : 'none'}}>
+      <div style={{ display: list.length > 0 ? "block" : "none" }}>
         <div className="title1">邀请记录</div>
         <div className="box4">
           <div className="box4-content">
@@ -139,11 +155,13 @@ const Account = () => {
               <div className="li">地址</div>
             </div>
             <div className="box4-content-bottom">
-              {list.map((item:any, key:number) => (
+              {list.map((item: any, key: number) => (
                 <div className="box4-content-main" key={key}>
                   <div className="li">{item.createTime}</div>
                   <div className="li"> </div>
-                  <div className="li">{truncateMiddle(item.refereeUserAddress)}</div>
+                  <div className="li">
+                    {truncateMiddle(item.refereeUserAddress)}
+                  </div>
                 </div>
               ))}
             </div>

@@ -599,7 +599,12 @@ const Invite = () => {
               </div>
               <div className="content">
                 <div className="li">
-                  {dateFormat("YYYY-mm-dd", new Date(IdoBuyRecord?.createTime))}
+                  {IdoBuyRecord?.createTime
+                    ? dateFormat(
+                        "YYYY-mm-dd",
+                        new Date(IdoBuyRecord?.createTime)
+                      )
+                    : ""}
                 </div>
                 <div className="li">{IdoBuyRecord?.payAmount}</div>
               </div>
