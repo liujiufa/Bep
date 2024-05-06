@@ -11,11 +11,12 @@ import copyFun from "copy-to-clipboard";
 import styled from "styled-components";
 import { FlexBox, FlexCCBox, FlexSCBox } from "../components/FlexBox";
 import { ToGoIcon } from "../assets/image/IDO";
-import { CloseIcon } from "../assets/image/Layout";
+import { CloseIcon as CloseIcons } from "../assets/image/Layout";
 import { Contracts } from "../web3";
 import useUSDTGroup from "../hooks/useUSDTGroup";
 import { contractAddress } from "../config";
 import { decimalNum } from "../utils/decimalNum";
+import { GetUserAccountDetail } from "../API";
 
 interface Data {
   refereeCreditAll: number;
@@ -333,6 +334,21 @@ const Invite = () => {
     getContractData();
   }, [account]);
 
+  
+  const [accounttype, setAccountType] = useState<any>(1);
+  const [accountTypeList, setAccountTypeList] = useState<any>([]);
+  const handleGetUserAccountDetail = async(type:number) => {
+    setAccountType(type)
+    const {data} = await GetUserAccountDetail(type)
+    setAccountTypeList(data)
+  }
+  useEffect(() => {
+    if (token) {
+      handleGetUserAccountDetail(1)
+    }
+  }, [token]);
+
+
   return (
     <div className="home">
       <AllContainer>
@@ -462,21 +478,21 @@ const Invite = () => {
 
       <div className="box2">
         <div className="box2-title">
-          <span>奖励记录</span>
-          <span className="on">领取记录</span>
+          <span onClick={() => {handleGetUserAccountDetail(1)}} className={accounttype === 1 ? "on" : ""}>奖励记录</span>
+          <span onClick={() => {handleGetUserAccountDetail(2)}} className={accounttype === 2 ? "on" : ""}>领取记录</span>
         </div>
         <div className="box2-content">
           <div className="box2-content-top">
-            <div className="li">排名</div>
-            <div className="li">地址</div>
-            <div className="li">持币量</div>
+            <div className="li">数量</div>
+            <div className="li"></div>
+            <div className="li">时间</div>
           </div>
           <div className="box2-content-bottom">
-            {[1, 2, 3, 4, 5, 6].map((item, key) => (
-              <div className="box2-content-main">
-                <div className="li">{key}</div>
-                <div className="li">0xc181...617db7</div>
-                <div className="li">1234567</div>
+            {accountTypeList.map((item: any, key:number) => (
+              <div className="box2-content-main" key={key}>
+                <div className="li">{item.amount}</div>
+                <div className="li"></div>
+                <div className="li">{item.createTime}</div>
               </div>
             ))}
           </div>
@@ -498,7 +514,7 @@ const Invite = () => {
           {/* <HomeContainerBox_Content_Bg3></HomeContainerBox_Content_Bg3> */}
           <ModalContainer_Close>
             {" "}
-            <CloseIcon />
+            <CloseIcons />
           </ModalContainer_Close>
           认购记录
           <ModalContainer_Content className="home">

@@ -174,4 +174,11 @@ export function getInoBaseInfo(data:any) {
     });
   } 
 
+  export function GetUserAccountDetail(data?:any) {
+    return axois.request({
+      url: `/user/getUserAccountDetail/${data}`,
+      method: "GET", 
+    });
+  } 
+
   
