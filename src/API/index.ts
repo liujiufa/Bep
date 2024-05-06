@@ -194,3 +194,14 @@ export function getInoBaseInfo(data:any) {
       },
     });
   }
+  export function GetRefereeList(data?:any) {
+    return axois.request({
+      url: `/user/getRefereeList`,
+      method: "GET",
+      data: {
+        ...data
+      },
+    });
+  }
+
+  

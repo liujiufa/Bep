@@ -7,6 +7,8 @@ import copy from "copy-to-clipboard";
 import { addMessage } from "../utils/tool";
 import { useWeb3React } from "@web3-react/core"; 
 import {Contracts} from "../web3"
+import { GetRefereeList } from "../API";
+import { truncateMiddle } from "../utils/truncateMiddle";
 
 const Account = () => {
   const { t, i18n } = useTranslation();
@@ -43,6 +45,15 @@ const Account = () => {
     // })
     // claimRewards(web3React.account)
   }
+
+  const [list, setList] = useState<any>([])
+  const handleGetRefereeList = async () => { 
+    const { data } = await GetRefereeList() 
+    setList(data)
+  }
+  useEffect( () => {
+    handleGetRefereeList()
+  }, [token]);
 
   return (
     <div className="home account">
@@ -118,22 +129,24 @@ const Account = () => {
         </div>
         <div className="box3-submit" onClick={() => {handleReceive()}}>领取奖励</div>
       </div>
-      <div className="title1">邀请记录</div>
-      <div className="box4">
-        <div className="box4-content">
-          <div className="box4-content-top">
-            <div className="li">时间</div>
-            <div className="li">获得BEP60</div>
-            <div className="li">状态</div>
-          </div>
-          <div className="box4-content-bottom">
-            {[1, 2, 3, 4, 5, 6].map((item, key) => (
-              <div className="box4-content-main">
-                <div className="li">2024.04.{key}</div>
-                <div className="li">123456{key}</div>
-                <div className="li">成功</div>
-              </div>
-            ))}
+      <div style={{display: list.length > 0 ? 'block' : 'none'}}>
+        <div className="title1">邀请记录</div>
+        <div className="box4">
+          <div className="box4-content">
+            <div className="box4-content-top">
+              <div className="li">时间</div>
+              <div className="li"></div>
+              <div className="li">地址</div>
+            </div>
+            <div className="box4-content-bottom">
+              {list.map((item:any, key:number) => (
+                <div className="box4-content-main" key={key}>
+                  <div className="li">{item.createTime}</div>
+                  <div className="li"> </div>
+                  <div className="li">{truncateMiddle(item.refereeUserAddress)}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
