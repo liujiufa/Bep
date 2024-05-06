@@ -4,7 +4,7 @@ import ConnectWallet from "../components/topBar";
 import { useSelector, useDispatch } from "react-redux";
 
 import copy from "copy-to-clipboard";
-import { addMessage } from "../utils/tool";
+import { addMessage, dateFormat } from "../utils/tool";
 import { useWeb3React } from "@web3-react/core";
 import { Contracts } from "../web3";
 import { GetRefereeList } from "../API";
@@ -107,7 +107,7 @@ const Account = () => {
                 />
               </svg>
             </div>
-            <div className="box3-main-li-num">123456</div>
+            <div className="box3-main-li-num">0</div>
           </div>
           <div className="box3-main-li">
             <div className="box3-main-li-text">
@@ -133,7 +133,7 @@ const Account = () => {
                 />
               </svg>
             </div>
-            <div className="box3-main-li-num">1234</div>
+            <div className="box3-main-li-num">0</div>
           </div>
         </div>
         <div
@@ -145,7 +145,7 @@ const Account = () => {
           领取奖励
         </div>
       </div>
-      <div style={{ display: list.length > 0 ? "block" : "none" }}>
+      <div>
         <div className="title1">邀请记录</div>
         <div className="box4">
           <div className="box4-content">
@@ -157,10 +157,12 @@ const Account = () => {
             <div className="box4-content-bottom">
               {list.map((item: any, key: number) => (
                 <div className="box4-content-main" key={key}>
-                  <div className="li">{item.createTime}</div>
+                  <div className="li">
+                    {dateFormat("YYYY-mm-dd", new Date(item.createTime))}
+                  </div>
                   <div className="li"> </div>
                   <div className="li">
-                    {truncateMiddle(item.refereeUserAddress)}
+                    {truncateMiddle(item.userAddress)}
                   </div>
                 </div>
               ))}

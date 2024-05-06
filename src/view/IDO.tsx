@@ -326,7 +326,7 @@ const Invite = () => {
   };
   const getData = () => {
     getIdoAccountInfo().then((res: any) => {
-      setIdoAccountInfo(res);
+      setIdoAccountInfo(res?.data || {});
     });
     getIdoBuyRecord().then((res: any) => {
       setIdoBuyRecord(res?.data || {});
@@ -495,7 +495,7 @@ const Invite = () => {
           </div> */}
           <div className="box3-main-li">
             <div className="box3-main-li-text">
-              可领取BEP60
+              可领取USDT
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -562,7 +562,9 @@ const Invite = () => {
               <div className="box2-content-main" key={key}>
                 <div className="li">{item.amount}</div>
                 <div className="li"></div>
-                <div className="li">{item.createTime}</div>
+                <div className="li">
+                  {dateFormat("YYYY-mm-dd", new Date(item.createTime))}
+                </div>
               </div>
             ))}
           </div>
