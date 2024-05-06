@@ -14,11 +14,11 @@ export default function Router() {
       <Routes>
         <Route path="/*" element={<MainLayout />}>
           <Route path=":address/">
-            <Route index element={<Home />}></Route>
+            <Route index element={<IDO />}></Route>
             <Route path="IDO" element={<IDO />}></Route>
           </Route>
           <Route path="account" element={<Account />}></Route>
-          <Route path="" element={<IDO />}></Route>
+          <Route path="" element={<Home />}></Route>
         </Route>
         <Route path="/DeputyLayout" element={<DeputyLayout />}></Route>
       </Routes>

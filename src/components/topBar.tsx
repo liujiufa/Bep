@@ -145,7 +145,7 @@ const topBar = (props: any) => {
             <div
               className={liKey === 2 ? "harder-mask-li harder-mask-li-on" : "harder-mask-li"}
               onClick={() => {
-                navigate(`${web3React.account}/IDO`);
+                navigate(`1/IDO`);
                 setShowLoding(!showLoding);
               }}
             >
