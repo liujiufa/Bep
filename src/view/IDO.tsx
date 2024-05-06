@@ -1,6 +1,6 @@
 import "../assets/style/Invite.scss";
 import BuyContainerBg from "../assets/image/IDO/BuyContainerBg.png";
-import { Pagination, Tooltip } from "antd";
+import { Modal, Pagination, Tooltip } from "antd";
 import { useLayoutEffect, useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getAllAward, getAllInvite, getAlldata } from "../API";
@@ -11,6 +11,7 @@ import copyFun from "copy-to-clipboard";
 import styled from "styled-components";
 import { FlexBox, FlexCCBox, FlexSCBox } from "../components/FlexBox";
 import { ToGoIcon } from "../assets/image/IDO";
+import { CloseIcon } from "../assets/image/Layout";
 
 interface Data {
   refereeCreditAll: number;
@@ -19,8 +20,9 @@ interface Data {
 }
 
 const AllContainer = styled.div`
-  width: 100%;
-  padding: 30px 18px;
+  /* width: 100%; */
+  /* padding: 30px 0px; */
+  margin: 30px 18px 0px 18px;
 `;
 
 const AllContainer_Title = styled.div`
@@ -40,12 +42,15 @@ const BuyContainer = styled.div`
   border-radius: 16px;
   background: #23262c;
   box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
+  z-index: 99;
+
   > img {
     position: absolute;
     right: 0;
     bottom: 0;
     width: 100%;
     max-width: 144px;
+    z-index: -1;
   }
 `;
 const BuyContainer_Info = styled.div`
@@ -112,7 +117,6 @@ const Btn = styled(FlexCCBox)<{ active: Boolean }>`
 const BtnContainer = styled(FlexSCBox)`
   width: 100%;
   margin-bottom: 12px;
-
   > span {
     margin-left: 12px;
     display: flex;
@@ -123,6 +127,130 @@ const BtnContainer = styled(FlexSCBox)`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+  }
+`;
+
+const AllModal = styled(Modal)`
+  z-index: 10000;
+
+  .ant-modal-content {
+    overflow: hidden;
+    border-radius: 16px;
+    background: #23262c;
+    box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.1);
+    .ant-modal-body {
+      border-radius: 20px;
+      position: relative;
+      min-height: 124px;
+      padding: 24px 15px;
+    }
+  }
+`;
+
+const ModalContainer = styled(FlexBox)`
+  /* position: relative; */
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: "Inter";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  .home {
+    width: 100%;
+    .box2 {
+      width: 100%;
+
+      margin: 0px;
+    }
+    .box2-content {
+      border-radius: 0px;
+    }
+  }
+`;
+
+const ModalContainer_Close = styled(FlexCCBox)`
+  position: absolute;
+  z-index: 100;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+`;
+
+export const ModalContainer_Title_Container = styled(FlexBox)`
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  > img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  > svg {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+`;
+
+export const ModalContainer_Title = styled(FlexCCBox)`
+  font-family: "PingFang SC";
+  font-size: 14px;
+  font-weight: normal;
+  line-height: normal;
+  text-transform: capitalize;
+  letter-spacing: 0em;
+  font-variation-settings: "opsz" auto;
+  color: #ffffff;
+`;
+
+const ModalContainer_Content = styled.div`
+  width: 100%;
+  margin-top: 20px;
+  font-family: "PingFang SC";
+  font-size: 12px;
+  font-weight: normal;
+  line-height: normal;
+  text-transform: capitalize;
+  letter-spacing: 0em;
+  font-variation-settings: "opsz" auto;
+  color: #ffffff;
+  padding: 15px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > input {
+    margin: 7px 0px 15px;
+    width: 100%;
+
+    box-sizing: border-box;
+    border: 1px solid rgba(213, 104, 25, 0.2);
+    text-align: left;
+
+    font-family: "PingFang SC";
+    font-size: 12px;
+    font-weight: normal;
+    line-height: normal;
+    letter-spacing: 0px;
+
+    font-variation-settings: "opsz" auto;
+    color: #999999;
+
+    border-radius: 8px;
+    padding: 8px 11px;
+    background: #ffffff;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
   }
 `;
 
@@ -139,7 +267,7 @@ const Invite = () => {
     refereeNum: 0,
     refereePassNum: 0,
   });
-  const [headArr, setHead] = useState<string[]>([]);
+  const [RecordModal, setRecordModal] = useState<any>(false);
   const [tbodyArr, setBody] = useState<any>([1, 2]);
   const [totalData, setTotal] = useState(0);
   const [curPage, setPage] = useState(1);
@@ -177,31 +305,153 @@ const Invite = () => {
   }, [token, type, curPage]);
 
   return (
-    <AllContainer>
-      <AllContainer_Title>IDO</AllContainer_Title>
-      <BuyContainer>
-        <BuyContainer_Info>
-          <div>MIN：100U=1万币</div>
-          <div>MAX：1000U=10万币</div>
-          <div>
-            *募资代币锁定钱包，开始交易后需要购买IDO金额的10%来触发解锁IDO代币。
+    <div className="home">
+      <AllContainer>
+        <AllContainer_Title>IDO</AllContainer_Title>
+        <BuyContainer>
+          <BuyContainer_Info>
+            <div>MIN：100U=1万币</div>
+            <div>MAX：1000U=10万币</div>
+            <div>
+              *募资代币锁定钱包，开始交易后需要购买IDO金额的10%来触发解锁IDO代币。
+            </div>
+          </BuyContainer_Info>
+          <ProcessContainer>
+            <ProcessBox>
+              <div style={{ width: "50%" }}></div>
+            </ProcessBox>
+            50%
+          </ProcessContainer>
+          <BtnContainer>
+            <Btn active={false}>认购</Btn>{" "}
+            <span>
+              认购记录 <ToGoIcon />
+            </span>
+          </BtnContainer>
+          <Btn active={true}>领取</Btn> <img src={BuyContainerBg} alt="" />
+        </BuyContainer>
+      </AllContainer>
+      <div className="box3">
+        <div className="title1">推荐奖励</div>
+        <div className="box3-main">
+          {/* <div className="box3-main-li">
+            <div className="box3-main-li-text">
+              累计BEP60
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M7.99999 7.79712C11.5283 7.79712 14.1889 6.63285 14.1889 5.08868C14.1889 3.54452 11.5283 2.38025 7.99999 2.38025C4.47165 2.38025 1.81104 3.54452 1.81104 5.08868C1.81104 6.63285 4.47165 7.79712 7.99999 7.79712ZM2.67085 5.08868C2.67085 4.31703 4.69845 3.24007 7.99999 3.24007C11.3015 3.24007 13.3291 4.31703 13.3291 5.08868C13.3291 5.86034 11.3015 6.9373 7.99999 6.9373C4.69845 6.9373 2.67085 5.86034 2.67085 5.08868Z"
+                  fill="white"
+                />
+                <path
+                  d="M13.6033 9.75801C13.5984 9.75406 13.5932 9.75056 13.5879 9.74748C13.5155 9.68825 13.4265 9.6558 13.3357 9.6558C13.1146 9.6558 12.9347 9.83566 12.9347 10.0568C12.9347 10.1616 12.9755 10.2599 13.0505 10.3358C13.054 10.3406 13.0575 10.345 13.0619 10.3494C13.237 10.5249 13.3457 10.7468 13.3457 10.928C13.3457 11.7067 11.312 12.7933 7.99993 12.7933C4.68786 12.7933 2.65412 11.7067 2.65412 10.928C2.65412 10.7319 2.7028 10.5582 2.94101 10.3485C2.94232 10.3472 2.95855 10.3318 2.95988 10.3305C2.96602 10.3244 2.97128 10.3174 2.97567 10.3099C3.03578 10.2371 3.06868 10.148 3.06868 10.0564C3.06868 9.83526 2.88882 9.6554 2.66772 9.6554C2.56945 9.6554 2.47646 9.69049 2.4032 9.75498C2.39618 9.75892 2.38959 9.76419 2.38345 9.76989C2.01452 10.1292 1.82764 10.5187 1.82764 10.928C1.82764 12.4625 4.48125 13.6198 7.99993 13.6198C11.5186 13.6198 14.1722 12.4625 14.1722 10.928C14.1722 10.5231 13.9871 10.1362 13.6261 9.78217C13.6239 9.77952 13.6055 9.76065 13.6033 9.75801Z"
+                  fill="white"
+                />
+                <path
+                  d="M13.5866 6.80039C13.5147 6.74117 13.4265 6.70914 13.3357 6.70914C13.1146 6.70914 12.9347 6.889 12.9347 7.1101C12.9347 7.21494 12.9755 7.31321 13.0505 7.38911C13.054 7.39394 13.0576 7.39832 13.0619 7.40272C13.237 7.5782 13.3458 7.80016 13.3458 7.98135C13.3458 8.76002 11.312 9.84663 7.99995 9.84663C4.68787 9.84663 2.65413 8.76001 2.65413 7.98135C2.65413 7.78526 2.70282 7.61154 2.94103 7.40185C2.94234 7.4001 2.95857 7.38475 2.95989 7.38343C2.9656 7.37773 2.97041 7.37159 2.97436 7.36457C3.03535 7.29175 3.06868 7.20181 3.06868 7.10925C3.06868 6.88815 2.88882 6.70874 2.66772 6.70874C2.56945 6.70874 2.47646 6.74384 2.4032 6.80832C2.39618 6.81227 2.38959 6.81753 2.38345 6.82324C2.01452 7.18251 1.82764 7.57207 1.82764 7.98137C1.82764 9.51588 4.48125 10.6731 7.99993 10.6731C11.5186 10.6731 14.1722 9.51589 14.1722 7.98137C14.1722 7.5769 13.9871 7.18953 13.6098 6.8171C13.6029 6.81005 13.5954 6.80477 13.5866 6.80039Z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+            <div className="box3-main-li-num">123456</div>
+          </div> */}
+          <div className="box3-main-li">
+            <div className="box3-main-li-text">
+              可领取BEP60
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M7.99999 7.79712C11.5283 7.79712 14.1889 6.63285 14.1889 5.08868C14.1889 3.54452 11.5283 2.38025 7.99999 2.38025C4.47165 2.38025 1.81104 3.54452 1.81104 5.08868C1.81104 6.63285 4.47165 7.79712 7.99999 7.79712ZM2.67085 5.08868C2.67085 4.31703 4.69845 3.24007 7.99999 3.24007C11.3015 3.24007 13.3291 4.31703 13.3291 5.08868C13.3291 5.86034 11.3015 6.9373 7.99999 6.9373C4.69845 6.9373 2.67085 5.86034 2.67085 5.08868Z"
+                  fill="white"
+                />
+                <path
+                  d="M13.6033 9.75801C13.5984 9.75406 13.5932 9.75056 13.5879 9.74748C13.5155 9.68825 13.4265 9.6558 13.3357 9.6558C13.1146 9.6558 12.9347 9.83566 12.9347 10.0568C12.9347 10.1616 12.9755 10.2599 13.0505 10.3358C13.054 10.3406 13.0575 10.345 13.0619 10.3494C13.237 10.5249 13.3457 10.7468 13.3457 10.928C13.3457 11.7067 11.312 12.7933 7.99993 12.7933C4.68786 12.7933 2.65412 11.7067 2.65412 10.928C2.65412 10.7319 2.7028 10.5582 2.94101 10.3485C2.94232 10.3472 2.95855 10.3318 2.95988 10.3305C2.96602 10.3244 2.97128 10.3174 2.97567 10.3099C3.03578 10.2371 3.06868 10.148 3.06868 10.0564C3.06868 9.83526 2.88882 9.6554 2.66772 9.6554C2.56945 9.6554 2.47646 9.69049 2.4032 9.75498C2.39618 9.75892 2.38959 9.76419 2.38345 9.76989C2.01452 10.1292 1.82764 10.5187 1.82764 10.928C1.82764 12.4625 4.48125 13.6198 7.99993 13.6198C11.5186 13.6198 14.1722 12.4625 14.1722 10.928C14.1722 10.5231 13.9871 10.1362 13.6261 9.78217C13.6239 9.77952 13.6055 9.76065 13.6033 9.75801Z"
+                  fill="white"
+                />
+                <path
+                  d="M13.5866 6.80039C13.5147 6.74117 13.4265 6.70914 13.3357 6.70914C13.1146 6.70914 12.9347 6.889 12.9347 7.1101C12.9347 7.21494 12.9755 7.31321 13.0505 7.38911C13.054 7.39394 13.0576 7.39832 13.0619 7.40272C13.237 7.5782 13.3458 7.80016 13.3458 7.98135C13.3458 8.76002 11.312 9.84663 7.99995 9.84663C4.68787 9.84663 2.65413 8.76001 2.65413 7.98135C2.65413 7.78526 2.70282 7.61154 2.94103 7.40185C2.94234 7.4001 2.95857 7.38475 2.95989 7.38343C2.9656 7.37773 2.97041 7.37159 2.97436 7.36457C3.03535 7.29175 3.06868 7.20181 3.06868 7.10925C3.06868 6.88815 2.88882 6.70874 2.66772 6.70874C2.56945 6.70874 2.47646 6.74384 2.4032 6.80832C2.39618 6.81227 2.38959 6.81753 2.38345 6.82324C2.01452 7.18251 1.82764 7.57207 1.82764 7.98137C1.82764 9.51588 4.48125 10.6731 7.99993 10.6731C11.5186 10.6731 14.1722 9.51589 14.1722 7.98137C14.1722 7.5769 13.9871 7.18953 13.6098 6.8171C13.6029 6.81005 13.5954 6.80477 13.5866 6.80039Z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+            <div className="box3-main-li-num">1234</div>
           </div>
-        </BuyContainer_Info>
-        <ProcessContainer>
-          <ProcessBox>
-            <div style={{ width: "50%" }}></div>
-          </ProcessBox>
-          50%
-        </ProcessContainer>
-        <BtnContainer>
-          <Btn active={false}>认购</Btn>{" "}
-          <span>
-            认购记录 <ToGoIcon />
-          </span>
-        </BtnContainer>
-        <Btn active={true}>领取</Btn> <img src={BuyContainerBg} alt="" />
-      </BuyContainer>
-    </AllContainer>
+        </div>
+        <div className="box3-submit">领取奖励</div>
+      </div>
+
+      <div className="box2">
+        <div className="box2-title">
+          <span>奖励记录</span>
+          <span className="on">领取记录</span>
+        </div>
+        <div className="box2-content">
+          <div className="box2-content-top">
+            <div className="li">排名</div>
+            <div className="li">地址</div>
+            <div className="li">持币量</div>
+          </div>
+          <div className="box2-content-bottom">
+            {[1, 2, 3, 4, 5, 6].map((item, key) => (
+              <div className="box2-content-main">
+                <div className="li">{key}</div>
+                <div className="li">0xc181...617db7</div>
+                <div className="li">1234567</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <AllModal
+        visible={true}
+        className="Modal"
+        centered
+        width={"340px"}
+        closable={false}
+        footer={null}
+        onCancel={() => {
+          setRecordModal(false);
+        }}
+      >
+        <ModalContainer>
+          {/* <HomeContainerBox_Content_Bg3></HomeContainerBox_Content_Bg3> */}
+          <ModalContainer_Close>
+            {" "}
+            <CloseIcon />
+          </ModalContainer_Close>
+          认购记录
+          <ModalContainer_Content className="home">
+            <div className="box2">
+              <div className="box2-content">
+                <div className="box2-content-top">
+                  <div className="li">时间</div>
+                  <div className="li">数量</div>
+                </div>
+                <div className="box2-content-bottom">
+                  {[1, 2, 3, 4, 5, 6].map((item, key) => (
+                    <div className="box2-content-main">
+                      <div className="li">{key}</div>
+                      <div className="li">1234567</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </ModalContainer_Content>
+        </ModalContainer>
+      </AllModal>
+    </div>
   );
 };
 

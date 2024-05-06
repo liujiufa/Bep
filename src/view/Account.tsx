@@ -23,17 +23,21 @@ const Account = () => {
   return (
     <div className="home account">
       <ConnectWallet></ConnectWallet>
-      <div className="title1">账号</div>  
-      <div className="box3">         
+      <div className="title1">账号</div>
+      <div className="box3">
         <div className="title1">我的邀请链接：</div>
         <div className="box3-main">
-          <div className="box3-main-li" style={{border: 'none'}}>
-            <div className="box3-main-li-text" style={{padding: '12px 10px'}}>
-            <div style={{wordBreak:'break-all', padding: '0px 18px'}}>https://unisat.io/0x0712410F349C8d906A093FE391790E33EECE516D</div>
-            </div> 
-          </div> 
+          <div className="box3-main-li" style={{ border: "none" }}>
+            <div className="box3-main-li-text" style={{ padding: "12px 10px" }}>
+              <div style={{ wordBreak: "break-all", padding: "0px 18px" }}>
+                https://unisat.io/0x0712410F349C8d906A093FE391790E33EECE516D
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="box3-submit" style={{margin: '34px auto 0px 18px'}}>复制</div>
+        <div className="box3-submit" style={{ margin: "34px auto 0px 18px" }}>
+          复制
+        </div>
       </div>
       <div className="box3">
         <div className="title1">推荐奖励</div>

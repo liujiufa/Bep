@@ -9,14 +9,12 @@ import Routers from "./router";
 import { GetQueryString, startWord } from "./utils/tool";
 // import web3 from 'web3';
 import { stateType } from "./store/reducer";
-import {
-  createDelMessageAction,
-} from "./store/actions";
+import { createDelMessageAction } from "./store/actions";
 import { Login } from "./API";
 import Loding from "./components/loding";
 import ViewportProvider from "./components/viewportContext";
 import prohibit from "./assets/image/prohibit.png";
-import cloneIcon from "./assets/image/closeIcon.svg";
+import cloneIcon from "./assets/image/CloseIcon.svg";
 
 import { t } from "i18next";
 import useConnectWallet from "./hooks/useConnectWallet";

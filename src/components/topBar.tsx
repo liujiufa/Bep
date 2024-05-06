@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import logo from "../assets/image/logo.png";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const topBar = (props: any) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -10,11 +10,10 @@ const topBar = (props: any) => {
   useEffect(() => {
     document.body.style.overflow = showLoding ? "hidden" : "auto";
   }, [showLoding]);
-  
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const navigate = useNavigate();
 
-  
   return (
     <div className="home">
       <div className="harder">
@@ -117,9 +116,12 @@ const topBar = (props: any) => {
             </svg>
             IDO
           </div>
-          <div className="harder-mask-li" onClick={() => {
-            navigate('/account');
-          }}>
+          <div
+            className="harder-mask-li"
+            onClick={() => {
+              navigate("/account");
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
