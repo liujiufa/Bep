@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ConnectWallet from "../components/topBar";
 
+import copy from "copy-to-clipboard"; 
+import { addMessage } from "../utils/tool";
+
 const Account = () => {
   const { t, i18n } = useTranslation();
 
@@ -11,7 +14,7 @@ const Account = () => {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResize); 
     };
   }, []);
 
@@ -19,6 +22,11 @@ const Account = () => {
   useEffect(() => {
     setLan(i18n.language);
   }, [i18n.language]);
+
+  const coppyUrl = (url: string) => {
+    copy(url);
+    addMessage(t("Copy successfully")); 
+  }
 
   return (
     <div className="home account">
@@ -33,7 +41,8 @@ const Account = () => {
             </div> 
           </div> 
         </div>
-        <div className="box3-submit" style={{margin: '34px auto 0px 18px'}}>复制</div>
+        <div className="box3-submit" style={{margin: '34px auto 0px 18px'}} 
+        onClick={() => coppyUrl('https://unisat.io/0x0712410F349C8d906A093FE391790E33EECE516D')}>复制</div>
       </div>
       <div className="box3">
         <div className="title1">推荐奖励</div>
