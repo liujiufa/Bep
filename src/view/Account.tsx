@@ -33,14 +33,9 @@ const Account = () => {
     addMessage(t("Copy successfully"));
   };
   const web3React = useWeb3React();
-<<<<<<< HEAD
-
-  const handleReceive = () => {
-=======
  
   const token = useSelector((state: any) => state?.token);
   const handleReceive = () => { 
->>>>>>> a7d83257885ebf581f23652bfa4c245b6ea00f8d
     // addMessage(t("Coming soon"));
     console.log(Contracts);
     // console.log(Contracts.example);
@@ -67,25 +62,6 @@ const Account = () => {
       <div className="box3">
         <div className="title1">我的邀请链接：</div>
         <div className="box3-main">
-<<<<<<< HEAD
-          <div className="box3-main-li" style={{ border: "none" }}>
-            <div className="box3-main-li-text" style={{ padding: "12px 10px" }}>
-              <div style={{ wordBreak: "break-all", padding: "0px 18px" }}>
-                {window.location.origin + "/" + web3React.account}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="box3-submit"
-          style={{ margin: "34px auto 0px 18px" }}
-          onClick={() =>
-            coppyUrl(window.location.origin + "/" + web3React.account)
-          }
-        >
-          复制
-        </div>
-=======
           <div className="box3-main-li" style={{border: 'none'}}>
             <div className="box3-main-li-text" style={{padding: '12px 10px'}}>
             <div style={{wordBreak:'break-all', padding: '0px 18px'}}>https://bep60.com/{web3React.account}/IDO</div>
@@ -94,7 +70,6 @@ const Account = () => {
         </div>
         <div className="box3-submit" style={{margin: '34px auto 0px 18px'}} 
         onClick={() => coppyUrl(`https://bep60.com/${web3React.account}/IDO`)}>复制</div>
->>>>>>> a7d83257885ebf581f23652bfa4c245b6ea00f8d
       </div>
       <div className="box3">
         <div className="title1">推荐奖励</div>
@@ -152,18 +127,7 @@ const Account = () => {
             <div className="box3-main-li-num">1234</div>
           </div>
         </div>
-<<<<<<< HEAD
-        <div
-          className="box3-submit"
-          onClick={() => {
-            handleReceive();
-          }}
-        >
-          领取23奖励
-        </div>
-=======
         <div className="box3-submit" onClick={() => {handleReceive()}}>领取奖励</div>
->>>>>>> a7d83257885ebf581f23652bfa4c245b6ea00f8d
       </div>
       <div style={{display: list.length > 0 ? 'block' : 'none'}}>
         <div className="title1">邀请记录</div>

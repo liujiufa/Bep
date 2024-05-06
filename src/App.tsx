@@ -14,7 +14,7 @@ import { Login } from "./API";
 import Loding from "./components/loding";
 import ViewportProvider from "./components/viewportContext";
 import prohibit from "./assets/image/prohibit.png";
-import cloneIcon from "./assets/image/closeIcon.svg";
+import cloneIcon from "./assets/image/CloseIcon.svg";
 
 import { t } from "i18next";
 import useConnectWallet from "./hooks/useConnectWallet";
@@ -22,7 +22,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { isMain } from "./config";
 import { message } from "antd";
-
 
 declare let window: any;
 
