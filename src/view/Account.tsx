@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ConnectWallet from "../components/topBar";
+import { useSelector, useDispatch } from "react-redux";
 
 import copy from "copy-to-clipboard"; 
 import { addMessage } from "../utils/tool";
@@ -31,6 +32,7 @@ const Account = () => {
   }
   const web3React = useWeb3React();
  
+  const token = useSelector((state: any) => state?.token);
   const handleReceive = () => { 
     // addMessage(t("Coming soon"));
     console.log(Contracts);
@@ -51,12 +53,12 @@ const Account = () => {
         <div className="box3-main">
           <div className="box3-main-li" style={{border: 'none'}}>
             <div className="box3-main-li-text" style={{padding: '12px 10px'}}>
-            <div style={{wordBreak:'break-all', padding: '0px 18px'}}>https://unisat.io/{web3React.account}</div>
+            <div style={{wordBreak:'break-all', padding: '0px 18px'}}>https://bep60.com/{web3React.account}/IDO</div>
             </div> 
           </div> 
         </div>
         <div className="box3-submit" style={{margin: '34px auto 0px 18px'}} 
-        onClick={() => coppyUrl(`https://unisat.io/${web3React.account}`)}>复制</div>
+        onClick={() => coppyUrl(`https://bep60.com/${web3React.account}/IDO`)}>复制</div>
       </div>
       <div className="box3">
         <div className="title1">推荐奖励</div>
@@ -114,7 +116,7 @@ const Account = () => {
             <div className="box3-main-li-num">1234</div>
           </div>
         </div>
-        <div className="box3-submit" onClick={() => {handleReceive()}}>领取23奖励</div>
+        <div className="box3-submit" onClick={() => {handleReceive()}}>领取奖励</div>
       </div>
       <div className="title1">邀请记录</div>
       <div className="box4">

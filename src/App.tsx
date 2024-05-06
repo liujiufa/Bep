@@ -14,7 +14,7 @@ import { Login } from "./API";
 import Loding from "./components/loding";
 import ViewportProvider from "./components/viewportContext";
 import prohibit from "./assets/image/prohibit.png";
-import cloneIcon from "./assets/image/CloseIcon.svg";
+import cloneIcon from "./assets/image/closeIcon.svg";
 
 import { t } from "i18next";
 import useConnectWallet from "./hooks/useConnectWallet";

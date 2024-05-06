@@ -539,7 +539,7 @@ const MainLayout: React.FC = () => {
             <div
               className="harder-mask-li"
               onClick={() => {
-                navigate("/IDO");
+                navigate(`${web3React.account}/IDO`);
                 setShowLoding(!showLoding);
               }}
             >

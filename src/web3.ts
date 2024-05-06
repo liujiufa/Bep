@@ -246,11 +246,11 @@ export class Contracts {
   //领取奖励
   claimRewards(addr?: any) {
     let Contract = new this.web3.eth.Contract(
-      abiObj.Stake,
-      contractAddress.Stake
-    );
-    console.log(addr);
-    console.log(Contract.methods);
+      abiObj.Ido,
+      contractAddress.Ido
+    ); 
+    console.info('Contracts withdrawReward'); 
+    console.info(Contract.methods);
     
     // return Contract.methods
     //   .stake(contractAddress.PassNft)
