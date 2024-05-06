@@ -27,7 +27,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      <ConnectWallet></ConnectWallet>
+      {/* <ConnectWallet></ConnectWallet> */}
       <div className="title1">我的交易</div>
       <div className="box1">
         <div className="trading">Trading</div>

@@ -27,6 +27,8 @@ import allContainerBg from "../assets/image/allContainerBg.png";
 
 import personIcon from "../assets/image//Layout/personIcon.svg";
 
+import TopBar from "../components/topBar";
+
 import "../assets/style/layout.scss";
 import { Menu, Dropdown, Modal } from "antd";
 import useConnectWallet from "../hooks/useConnectWallet";
@@ -40,6 +42,7 @@ import { useSign } from "../hooks/useSign";
 import { truncateMiddle } from "../utils/truncateMiddle";
 import { showLoding as showLodingFun } from "../utils/tool";
 const { Header, Content, Footer, Sider } = Layout;
+
 
 let refereeUserAddress: any;
 let langObj = [
@@ -443,7 +446,8 @@ const MainLayout: React.FC = () => {
     <div className="UUContainer">
       <ContainerBg1 src={allContainerBg}></ContainerBg1>
 
-      <div className="home">
+      <TopBar />
+      {/* <div className="home">
         <div className="harder">
           <img className="logo" src={logo} alt="" />
           <div style={{ flex: 1 }}></div>
@@ -493,7 +497,7 @@ const MainLayout: React.FC = () => {
             className="harder-mask"
             style={{ display: showLoding ? "block" : "none" }}
           >
-            <div className="harder-mask-li"
+            <div className="harder-mask-li harder-mask-li-on"
               onClick={() => {
                 navigate(`/`);
                 setShowLoding(!showLoding);
@@ -599,7 +603,7 @@ const MainLayout: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <ContentContainer className="MainContent">
         <Outlet />

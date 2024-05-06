@@ -57,7 +57,7 @@ const Account = () => {
 
   return (
     <div className="home account">
-      <ConnectWallet></ConnectWallet>
+      {/* <ConnectWallet></ConnectWallet> */}
       <div className="title1">账号</div>
       <div className="box3">
         <div className="title1">我的邀请链接：</div>
