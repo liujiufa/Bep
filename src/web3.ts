@@ -170,11 +170,7 @@ export class Contracts {
       .boundReferer(toAddr)
       .send({ from: addr, gasPrice: "5000000000" });
   }
-  withdrawReward(
-    addr: string,
-    data: string,
-    contractName: string = "RewardDistribute"
-  ) {
+  withdrawReward(addr: string, data: string, contractName: string = "Ido") {
     this.verification(contractName);
     let obj = new this.web3.eth.Contract(
       abiObj[contractName],
@@ -244,13 +240,10 @@ export class Contracts {
 
   //领取奖励
   claimRewards(addr?: any) {
-    let Contract = new this.web3.eth.Contract(
-      abiObj.Ido,
-      contractAddress.Ido
-    ); 
-    console.info('Contracts withdrawReward'); 
+    let Contract = new this.web3.eth.Contract(abiObj.Ido, contractAddress.Ido);
+    console.info("Contracts withdrawReward");
     console.info(Contract.methods);
-    
+
     // return Contract.methods
     //   .stake(contractAddress.PassNft)
     //   .send({ from: addr, gasPrice: "5000000000" });

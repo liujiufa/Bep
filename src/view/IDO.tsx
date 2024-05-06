@@ -3,8 +3,14 @@ import BuyContainerBg from "../assets/image/IDO/BuyContainerBg.png";
 import { Modal, Pagination, Tooltip } from "antd";
 import { useLayoutEffect, useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getAllAward } from "../API";
-import { AddrHandle, NumSplic1, addMessage, showLoding } from "../utils/tool";
+import { getAllAward, getIdoAccountInfo, getIdoBuyRecord } from "../API";
+import {
+  AddrHandle,
+  NumSplic1,
+  addMessage,
+  dateFormat,
+  showLoding,
+} from "../utils/tool";
 import { useWeb3React } from "@web3-react/core";
 import { useTranslation } from "react-i18next";
 import copyFun from "copy-to-clipboard";
@@ -16,6 +22,7 @@ import { Contracts } from "../web3";
 import useUSDTGroup from "../hooks/useUSDTGroup";
 import { contractAddress } from "../config";
 import { decimalNum } from "../utils/decimalNum";
+import { useGetReward } from "../hooks/useGetReward";
 
 interface Data {
   refereeCreditAll: number;
@@ -261,6 +268,23 @@ const ModalContainer_Content = styled.div`
   }
 `;
 
+const ModalContainer_Content_Table = styled.div`
+  width: 100%;
+  > div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .content {
+    /* border: 1px solid rgba(236, 234, 243, 0.1);
+    background: #2f333b; */
+    > div {
+      padding: 20px 0px;
+    }
+  }
+`;
+
 const Invite = () => {
   const { t, i18n } = useTranslation();
   const { account } = useWeb3React<any>();
@@ -276,8 +300,12 @@ const Invite = () => {
   });
   const [RecordModal, setRecordModal] = useState<any>(false);
   const [IdoInfo, setIdoInfo] = useState<any>({});
+  const [IdoAccountInfo, setIdoAccountInfo] = useState<any>({});
+  const [IdoBuyRecord, setIdoBuyRecord] = useState<any>({});
   const [winWidth, setWidth] = useState(window.innerWidth);
   const [lan, setLan] = useState<any>();
+  const { getReward } = useGetReward();
+
   const { TOKENAllowance, TOKENBalance, handleTransaction, handleUSDTRefresh } =
     useUSDTGroup(contractAddress.Ido, "USDT");
   const getContractData = async () => {
@@ -290,6 +318,14 @@ const Invite = () => {
       maxIdoTokenNum: res1,
       currentIdoTokenNum: res2,
       idoNum: userinfosData?.idoNum,
+    });
+  };
+  const getData = () => {
+    getIdoAccountInfo().then((res: any) => {
+      setIdoAccountInfo(res);
+    });
+    getIdoBuyRecord().then((res: any) => {
+      setIdoBuyRecord(res?.data || {});
     });
   };
 
@@ -313,6 +349,11 @@ const Invite = () => {
     }
   };
 
+  const getRewardFun = (amount: any) => {
+    if (Number(amount) <= 0) return addMessage(t("无法领取"));
+    getReward(1, getData, () => {}, "Ido");
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
@@ -327,7 +368,8 @@ const Invite = () => {
 
   useEffect(() => {
     if (!token) return;
-  }, [token]);
+    getData();
+  }, [token, RecordModal]);
   useEffect(() => {
     if (!account) return;
     getContractData();
@@ -370,15 +412,19 @@ const Invite = () => {
               : 0}
             %
           </ProcessContainer>
-          {IdoInfo?.idoNum && Number(IdoInfo?.idoNum) <= 0 ? (
+          {IdoInfo?.idoNum && Number(IdoInfo?.idoNum) > 0 ? (
             <>
-              <BtnContainer>
+              <ToBtnContainer>
                 <Btn active={false}>认购</Btn>{" "}
-                <span>
+                <span
+                  onClick={() => {
+                    setRecordModal(true);
+                  }}
+                >
                   认购记录 <ToGoIcon />
                 </span>
-              </BtnContainer>
-              <Btn active={true}>领取</Btn>
+              </ToBtnContainer>
+              {/* <Btn active={true}>领取</Btn> */}
             </>
           ) : (
             <ToBtnContainer>
@@ -454,10 +500,19 @@ const Invite = () => {
                 />
               </svg>
             </div>
-            <div className="box3-main-li-num">1234</div>
+            <div className="box3-main-li-num">
+              {IdoAccountInfo?.amount ?? "0"}
+            </div>
           </div>
         </div>
-        <div className="box3-submit">领取奖励</div>
+        <div
+          className="box3-submit"
+          onClick={() => {
+            getRewardFun(IdoAccountInfo?.amount ?? "0");
+          }}
+        >
+          领取奖励
+        </div>
       </div>
 
       <div className="box2">
@@ -498,26 +553,26 @@ const Invite = () => {
           {/* <HomeContainerBox_Content_Bg3></HomeContainerBox_Content_Bg3> */}
           <ModalContainer_Close>
             {" "}
-            <CloseIcon />
+            <CloseIcon
+              onClick={() => {
+                setRecordModal(false);
+              }}
+            />
           </ModalContainer_Close>
           认购记录
-          <ModalContainer_Content className="home">
-            <div className="box2">
-              <div className="box2-content">
-                <div className="box2-content-top">
-                  <div className="li">时间</div>
-                  <div className="li">数量</div>
-                </div>
-                <div className="box2-content-bottom">
-                  {[1, 2, 3, 4, 5, 6].map((item, key) => (
-                    <div className="box2-content-main">
-                      <div className="li">{key}</div>
-                      <div className="li">1234567</div>
-                    </div>
-                  ))}
-                </div>
+          <ModalContainer_Content>
+            <ModalContainer_Content_Table>
+              <div>
+                <div className="li">时间</div>
+                <div className="li">数量</div>
               </div>
-            </div>
+              <div className="content">
+                <div className="li">
+                  {dateFormat("YYYY-mm-dd", new Date(IdoBuyRecord?.createTime))}
+                </div>
+                <div className="li">{IdoBuyRecord?.payAmount}</div>
+              </div>
+            </ModalContainer_Content_Table>
           </ModalContainer_Content>
         </ModalContainer>
       </AllModal>

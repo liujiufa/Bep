@@ -9,7 +9,7 @@ export const isMain = false;
 // 自己
 export let baseUrl: string = isMain
   ? window.location.origin + "/user/"
-  : "http://192.168.1.37:18889/";
+  : "https://bep60.com/api";
 export let ContractUrl: string = isMain
   ? "https://bscscan.com/address/"
   : "https://testnet.bscscan.com/address/";

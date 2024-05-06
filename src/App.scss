@@ -22,7 +22,7 @@ body,
 
   .messageLebel {
     width: 48px;
-    background: linear-gradient(90deg, #23d1ab -2.32%, #9ad1ab 94.72%);
+    background: linear-gradient(90deg, #06d7ee 0%, #0177fb 100%);
 
     // display: flex;
     // justify-content: center;
@@ -210,7 +210,6 @@ body,
   }
 }
 
-
 // Bep项目样式
 .w-1200 {
   width: 1200px;
@@ -230,7 +229,7 @@ body,
   border-radius: 8px;
   border: 1px solid #fff;
   color: #fff;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-size: 14px;
   font-weight: 700;
   text-align: center;
@@ -255,7 +254,7 @@ body,
 }
 .home .title1 {
   color: #fff;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-size: 20px;
   font-weight: 700;
   padding: 30px 18px;
@@ -265,7 +264,7 @@ body,
   margin: 0px 18px;
   padding: 20px 18px;
   box-sizing: border-box;
-  background-image: url('./assets/image/icon01.png');
+  background-image: url("./assets/image/icon01.png");
   background-size: cover;
   background-position: center;
 }
@@ -283,7 +282,7 @@ body,
   height: 110px;
   margin: 0px 26px;
   text-align: center;
-  background-image: url('./assets/image/icon02.png');
+  background-image: url("./assets/image/icon02.png");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -484,7 +483,7 @@ body,
   width: 60px;
   text-align: right;
 }
-.home .harder-mask{
+.home .harder-mask {
   background: #000000b3;
   bottom: 0;
   left: 0;
@@ -496,18 +495,18 @@ body,
   top: 60px;
   z-index: 22;
 }
-.home .harder-mask-li{
+.home .harder-mask-li {
   display: flex;
-  align-items: center; 
-  color: #A3A3A3;
-  text-align: center; 
-  font-size: 16px; 
-  font-weight: 700; 
+  align-items: center;
+  color: #a3a3a3;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
   margin-top: 36px;
 }
-.home .harder-mask-li-on{
-  color: #06D7EE
+.home .harder-mask-li-on {
+  color: #06d7ee;
 }
-.home .harder-mask-li svg{
+.home .harder-mask-li svg {
   margin-right: 6px;
 }

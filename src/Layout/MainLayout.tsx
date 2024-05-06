@@ -43,7 +43,6 @@ import { truncateMiddle } from "../utils/truncateMiddle";
 import { showLoding as showLodingFun } from "../utils/tool";
 const { Header, Content, Footer, Sider } = Layout;
 
-
 let refereeUserAddress: any;
 let langObj = [
   { value: "中文", key: "zh" },
@@ -415,7 +414,7 @@ const MainLayout: React.FC = () => {
   }, [connectWallet]);
 
   useEffect(() => {
-    // LoginFun();
+    LoginFun();
   }, [web3React.account]);
 
   useEffect(() => {
