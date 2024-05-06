@@ -1,0 +1,61 @@
+.mask{
+    width: 100%;
+    height: 100%;
+
+    .dui {
+        border-radius: 2.5rem;
+        border: 2px solid #722FFF;
+        background: linear-gradient(311deg, #144344 0.76%, #272245 93%);
+        width: 43.1666rem;
+        height: 28.3333rem;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+    
+        .text {
+            color: #FFF;
+            text-align: center;
+            font-family: "PingFang SC";
+            font-size: 2rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 2rem;
+            margin: 4.16666rem auto 2.16666rem;
+        }
+
+        img{
+            width: 6.66666rem;
+            height: 6.66666rem;
+        }
+    
+        .btn {
+            margin: 4.16666rem auto;
+    
+            div {
+                display: flex;
+                width: 12.5rem;
+                height: 4.16666rem;
+                justify-content: center;
+                align-items: center;
+                flex-shrink: 0;
+                border-radius: 1.16666rem;
+                opacity: 1;
+                background: linear-gradient(270deg, #9ED2AC 0.16%, #21D2AC 99.76%);
+                margin: 0 auto;
+                color: #000;
+                font-family: "PingFang SC";
+                font-size: 1.6666rem;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 1.6666rem;
+                cursor: pointer;
+            }
+        }
+    }
+}

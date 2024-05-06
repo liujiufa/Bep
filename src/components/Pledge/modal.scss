@@ -1,0 +1,179 @@
+.mymodal {
+    width: 66.6666rem !important;
+
+    @media (max-width: 768px) {
+        width: 322px !important;
+    }
+    @media (max-width: 320px) {
+        width: 312px !important;
+    }
+
+    .ant-modal-content {
+        width: 66.6666rem;
+        height: 60.41666rem;
+        flex-shrink: 0;
+        border-radius: 2.5rem;
+        border: 2px solid #722FFF;
+        background: linear-gradient(311deg, #144344 0.76%, #272245 93%);
+
+        @media (max-width: 768px) {
+            width: 322px !important;
+        }
+        @media (max-width: 320px) {
+            width: 312px !important;
+        }
+    }
+
+    .ant-modal-header {
+        display: none;
+    }
+
+    .ant-modal-close {
+        display: none;
+    }
+
+
+    .ant-modal-body {
+        display: flex;
+        flex-direction: column;
+        padding-top: 0;
+    }
+
+
+    .ant-modal-footer {
+        display: none;
+    }
+}
+
+.headerm {
+    width: 100%;
+    height: 6.8333rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    span {
+        color: #FFF;
+        font-family: "PingFang SC";
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 2rem;
+        display: inline-block;
+    }
+
+    img {
+        position: absolute;
+        top: 1.6666rem;
+        right: 1.6666rem;
+        cursor: pointer;
+        width: 2.5rem;
+        height: 2.5rem;
+        flex-shrink: 0;
+    }
+}
+
+.color {
+    width: 100%;
+    height: 1px;
+    opacity: 0.6;
+    background: linear-gradient(90deg, rgba(165, 242, 0, 0.00) 1.07%, #00FFC8 53.32%, rgba(165, 242, 0, 0.00) 100.4%);
+    margin-bottom: 3.5rem;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+    margin-bottom: 5rem;
+    flex-wrap: wrap;
+    height: 36.6666rem;
+    overflow-y: auto;
+    // flex: 1;
+    @media (max-width: 768px) {
+        column-gap: 8px;
+    }
+
+    .havedata {
+        opacity: 1 !important;
+    }
+
+    >.box {
+        display: flex;
+        width: 16.66666rem;
+        height: 16.66666rem;
+        padding: 16px 0px 1.6666rem 0px;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.91666rem;
+        border-radius: 1.6666rem;
+        border: 1px solid #29D1AB;
+        opacity: 0.4;
+        margin-bottom: 3.33333rem;
+        cursor: pointer;
+        user-select: none;
+        @media (max-width: 768px) {
+            margin-left: 0 !important;
+        }
+
+        div {
+            color: #FFF;
+            font-family: "PingFang SC";
+            font-size: 1.5rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1.5rem;
+        }
+
+        img {
+            width: 16.66667rem;
+            height: 10.66667rem;
+        }
+    }
+}
+
+.btn {
+    margin-bottom: 4.1666rem;
+
+    div {
+        display: flex;
+        width: 12.5rem;
+        height: 4.1666rem;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        border-radius: 1.1666rem;
+        opacity: 0.5;
+        background: linear-gradient(270deg, #9ED2AC 0.16%, #21D2AC 99.76%);
+        margin: 0 auto;
+        color: #000;
+        font-family: "PingFang SC";
+        font-size: 1.6666rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 1.6666rem;
+        cursor: pointer;
+    }
+
+    .havedata {
+        opacity: 1;
+    }
+}
+
+/* 设置滚动条宽度和边框半径 */
+::-webkit-scrollbar {
+    width: 0.5rem;
+    right: 2.1666rem;
+}
+
+/* 设置滚动条轨道颜色 */
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.20);
+    border-radius: 0.9166rem
+}
+
+/* 设置滚动条颜色 */
+::-webkit-scrollbar-thumb {
+    background: #29D1AB;
+    border-radius: 0.9166rem
+}
