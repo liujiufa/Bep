@@ -493,7 +493,11 @@ const MainLayout: React.FC = () => {
             className="harder-mask"
             style={{ display: showLoding ? "block" : "none" }}
           >
-            <div className="harder-mask-li">
+            <div className="harder-mask-li"
+              onClick={() => {
+                navigate(`/`);
+                setShowLoding(!showLoding);
+              }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

@@ -202,6 +202,6 @@ export function getInoBaseInfo(data:any) {
         ...data
       },
     });
-  }
+  } 
 
   
