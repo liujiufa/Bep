@@ -210,13 +210,13 @@ export class Contracts {
       contractAddress.Stake
     );
     console.log(id);
-    
+
     return Contract.methods
       .stake(contractAddress.PassNft, id)
       .send({ from: addr, gasPrice: "5000000000" });
   }
   //撤回
-  unStakeNFT(addr: string,data: any) {
+  unStakeNFT(addr: string, data: any) {
     let Contract = new this.web3.eth.Contract(
       abiObj.Stake,
       contractAddress.Stake
@@ -242,7 +242,6 @@ export class Contracts {
       .call({ from: addr });
   }
 
-  
   //领取奖励
   claimRewards(addr?: any) {
     let Contract = new this.web3.eth.Contract(
@@ -251,10 +250,37 @@ export class Contracts {
     );
     console.log(addr);
     console.log(Contract.methods);
-    
+
     // return Contract.methods
     //   .stake(contractAddress.PassNft)
     //   .send({ from: addr, gasPrice: "5000000000" });
   }
 
+  maxIdoTokenNum(addr: string) {
+    this.verification("Ido");
+    console.log(this.contract.Ido);
+
+    return this.contract.Ido?.methods.maxIdoTokenNum().call({ from: addr });
+  }
+  currentIdoTokenNum(addr: string) {
+    this.verification("Ido");
+    console.log(this.contract.Ido);
+
+    return this.contract.Ido?.methods.currentIdoTokenNum().call({ from: addr });
+  }
+
+  buyIdo(addr: string, amount: string) {
+    this.verification("Ido");
+    console.log(this.contract.Ido);
+    var amounted = Web3.utils.toWei(amount + "", "ether");
+
+    return this.contract.Ido?.methods
+      .buyIdo(amounted)
+      .send({ from: addr, gasPrice: "5000000000" });
+  }
+  userinfos(addr: string) {
+    this.verification("Ido");
+
+    return this.contract.Ido?.methods?.userInfos(addr).call({ from: addr });
+  }
 }

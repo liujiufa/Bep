@@ -3,8 +3,8 @@ import BuyContainerBg from "../assets/image/IDO/BuyContainerBg.png";
 import { Modal, Pagination, Tooltip } from "antd";
 import { useLayoutEffect, useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getAllAward, getAllInvite, getAlldata } from "../API";
-import { AddrHandle, addMessage, showLoding } from "../utils/tool";
+import { getAllAward } from "../API";
+import { AddrHandle, NumSplic1, addMessage, showLoding } from "../utils/tool";
 import { useWeb3React } from "@web3-react/core";
 import { useTranslation } from "react-i18next";
 import copyFun from "copy-to-clipboard";
@@ -12,6 +12,10 @@ import styled from "styled-components";
 import { FlexBox, FlexCCBox, FlexSCBox } from "../components/FlexBox";
 import { ToGoIcon } from "../assets/image/IDO";
 import { CloseIcon } from "../assets/image/Layout";
+import { Contracts } from "../web3";
+import useUSDTGroup from "../hooks/useUSDTGroup";
+import { contractAddress } from "../config";
+import { decimalNum } from "../utils/decimalNum";
 
 interface Data {
   refereeCreditAll: number;
@@ -128,6 +132,9 @@ const BtnContainer = styled(FlexSCBox)`
     font-weight: 700;
     line-height: normal;
   }
+`;
+const ToBtnContainer = styled(BtnContainer)`
+  margin-bottom: 45px;
 `;
 
 const AllModal = styled(Modal)`
@@ -256,7 +263,7 @@ const ModalContainer_Content = styled.div`
 
 const Invite = () => {
   const { t, i18n } = useTranslation();
-  const web3React = useWeb3React();
+  const { account } = useWeb3React<any>();
   const token = useSelector<any>((state) => state.token);
 
   const spanRef = useRef<HTMLSpanElement>(null);
@@ -268,11 +275,44 @@ const Invite = () => {
     refereePassNum: 0,
   });
   const [RecordModal, setRecordModal] = useState<any>(false);
-  const [tbodyArr, setBody] = useState<any>([1, 2]);
-  const [totalData, setTotal] = useState(0);
-  const [curPage, setPage] = useState(1);
+  const [IdoInfo, setIdoInfo] = useState<any>({});
   const [winWidth, setWidth] = useState(window.innerWidth);
   const [lan, setLan] = useState<any>();
+  const { TOKENAllowance, TOKENBalance, handleTransaction, handleUSDTRefresh } =
+    useUSDTGroup(contractAddress.Ido, "USDT");
+  const getContractData = async () => {
+    let res1 = await Contracts.example?.maxIdoTokenNum(account as string);
+    let res2 = await Contracts.example?.currentIdoTokenNum(account as string);
+    let userinfosData = await Contracts.example?.userinfos(account as string);
+    console.log(userinfosData, "userinfosData");
+
+    setIdoInfo({
+      maxIdoTokenNum: res1,
+      currentIdoTokenNum: res2,
+      idoNum: userinfosData?.idoNum,
+    });
+  };
+
+  const buyIdo = async () => {
+    showLoding(true);
+    let res;
+    try {
+      res = await Contracts.example?.buyIdo(account as string, 100 + "");
+    } catch (error: any) {
+      showLoding(false);
+      return addMessage("购买失败");
+    }
+    showLoding(false);
+    if (!!res?.status) {
+      showLoding(false);
+      getContractData();
+      return addMessage("购买成功");
+    } else {
+      showLoding(false);
+      return addMessage("购买失败");
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
@@ -287,21 +327,11 @@ const Invite = () => {
 
   useEffect(() => {
     if (!token) return;
-    getAlldata().then((res: { data: Data }) => {
-      setAlldata(res.data);
-    });
-    if (type === 0) {
-      getAllInvite(curPage).then((res) => {
-        setBody(res.data.list);
-        setTotal(res.data.total);
-      });
-    } else {
-      getAllAward(curPage).then((res: { data: any }) => {
-        setBody(res.data.list);
-        setTotal(res.data.total);
-      });
-    }
-  }, [token, type, curPage]);
+  }, [token]);
+  useEffect(() => {
+    if (!account) return;
+    getContractData();
+  }, [account]);
 
   return (
     <div className="home">
@@ -317,17 +347,58 @@ const Invite = () => {
           </BuyContainer_Info>
           <ProcessContainer>
             <ProcessBox>
-              <div style={{ width: "50%" }}></div>
+              <div
+                style={{
+                  width: `${
+                    !!IdoInfo?.maxIdoTokenNum
+                      ? NumSplic1(
+                          Number(IdoInfo?.currentIdoTokenNum) /
+                            Number(IdoInfo?.maxIdoTokenNum),
+                          4
+                        ) * 100
+                      : 0
+                  }`,
+                }}
+              ></div>
             </ProcessBox>
-            50%
+            {!!IdoInfo?.maxIdoTokenNum
+              ? NumSplic1(
+                  Number(IdoInfo?.currentIdoTokenNum) /
+                    Number(IdoInfo?.maxIdoTokenNum),
+                  4
+                ) * 100
+              : 0}
+            %
           </ProcessContainer>
-          <BtnContainer>
-            <Btn active={false}>认购</Btn>{" "}
-            <span>
-              认购记录 <ToGoIcon />
-            </span>
-          </BtnContainer>
-          <Btn active={true}>领取</Btn> <img src={BuyContainerBg} alt="" />
+          {IdoInfo?.idoNum && Number(IdoInfo?.idoNum) <= 0 ? (
+            <>
+              <BtnContainer>
+                <Btn active={false}>认购</Btn>{" "}
+                <span>
+                  认购记录 <ToGoIcon />
+                </span>
+              </BtnContainer>
+              <Btn active={true}>领取</Btn>
+            </>
+          ) : (
+            <ToBtnContainer>
+              <Btn
+                active={true}
+                onClick={async (event: any) => {
+                  event.stopPropagation();
+                  await handleTransaction(100 + "", async (call2) => {}).then(
+                    () => {
+                      handleUSDTRefresh();
+                      buyIdo();
+                    }
+                  );
+                }}
+              >
+                认购
+              </Btn>{" "}
+            </ToBtnContainer>
+          )}
+          <img src={BuyContainerBg} alt="" />
         </BuyContainer>
       </AllContainer>
       <div className="box3">
@@ -413,7 +484,7 @@ const Invite = () => {
       </div>
 
       <AllModal
-        visible={true}
+        visible={RecordModal}
         className="Modal"
         centered
         width={"340px"}

@@ -25,26 +25,6 @@ export function getCardUserList(cardType: number) {
   });
 }
 
-//获取邀请页面下，的数据总览
-export function getAlldata() {
-  return axois.request({
-    url: "/pPassUser/passRefereeInfo",
-    method: "post",
-  });
-}
-
-//获取邀请记录
-export function getAllInvite(num: number) {
-  return axois.request({
-    url: "/pPassUser/refereePledgeList",
-    method: "post",
-    data: {
-      pageNum: num,
-      pageSize: 7,
-    },
-  });
-}
-
 //获取奖励记录
 export function getAllAward(num: number) {
   return axois.request({
@@ -101,96 +81,96 @@ export function PleToday() {
 }
 
 //查看质押nft
-export function WatchNFT(id:number){
-    return axois.request({
-        url:'/pPassPledgeNft/getInfo',
-        method:'post',
-        data:{
-            id,
-            pageSize:99999,
-        }
-    })
-}
-
-export function  HaveNFT(){
+export function WatchNFT(id: number) {
   return axois.request({
-    url:'/pPassNftUser/userNftList',
-    method:'post',
-    data:{
-        pageSize:99999,
-    }
-})
+    url: "/pPassPledgeNft/getInfo",
+    method: "post",
+    data: {
+      id,
+      pageSize: 99999,
+    },
+  });
 }
 
-export function getInoBaseInfo(data:any) {
-    return axois.request({
-      url: `/lLotteryInfo/LotteryCurrentList`,
-      method: "post",
-      data: {
-        ...data
-      },
-    });
-  }
-  export function lastUserList(data:any) {
-    return axois.request({
-      url: `/lLotteryWinning/lastUserList`,
-      method: "post",
-      data: {
-        ...data
-      },
-    });
-  }
-  export function lotteryInfo(data:any) {
-    return axois.request({
-      url: `/pPassUser/lotteryInfo`,
-      method: "post",
-      data: {
-        ...data
-      },
-    });
-  }
-  export function bindBtcAddress(data:any) {
-    return axois.request({
-      url: `/pPassUser/bindBtcAddress`,
-      method: "post",
-      data: {
-        ...data
-      },
-    });
-  }
-  export function LotteryInfoList(data:any) {
-    return axois.request({
-      url: `/lLotteryInfo/LotteryInfoList`,
-      method: "post",
-      data: {
-        ...data
-      },
-    });
-  }
-  export function LotteryPayList(data:any) {
-    return axois.request({
-      url: `/lLotteryPay/LotteryPayList`,
-      method: "post",
-      data: {
-        ...data
-      },
-    });
-  }
-  export function LotteryPay(data:any) {
-    return axois.request({
-      url: `/lLotteryPay/LotteryPay`,
-      method: "post",
-      data: {
-        ...data
-      },
-    });
-  }
-  export function LotteryPayInfo(data:any) {
-    return axois.request({
-      url: `/pPassUser/LotteryPayInfo`,
-      method: "post",
-      data: {
-        ...data
-      },
-    });
-  }
+export function HaveNFT() {
+  return axois.request({
+    url: "/pPassNftUser/userNftList",
+    method: "post",
+    data: {
+      pageSize: 99999,
+    },
+  });
+}
+
+export function getInoBaseInfo(data: any) {
+  return axois.request({
+    url: `/lLotteryInfo/LotteryCurrentList`,
+    method: "post",
+    data: {
+      ...data,
+    },
+  });
+}
+export function lastUserList(data: any) {
+  return axois.request({
+    url: `/lLotteryWinning/lastUserList`,
+    method: "post",
+    data: {
+      ...data,
+    },
+  });
+}
+export function lotteryInfo(data: any) {
+  return axois.request({
+    url: `/pPassUser/lotteryInfo`,
+    method: "post",
+    data: {
+      ...data,
+    },
+  });
+}
+export function bindBtcAddress(data: any) {
+  return axois.request({
+    url: `/pPassUser/bindBtcAddress`,
+    method: "post",
+    data: {
+      ...data,
+    },
+  });
+}
+export function LotteryInfoList(data: any) {
+  return axois.request({
+    url: `/lLotteryInfo/LotteryInfoList`,
+    method: "post",
+    data: {
+      ...data,
+    },
+  });
+}
+export function LotteryPayList(data: any) {
+  return axois.request({
+    url: `/lLotteryPay/LotteryPayList`,
+    method: "post",
+    data: {
+      ...data,
+    },
+  });
+}
+export function LotteryPay(data: any) {
+  return axois.request({
+    url: `/lLotteryPay/LotteryPay`,
+    method: "post",
+    data: {
+      ...data,
+    },
+  });
+}
+export function LotteryPayInfo(data: any) {
+  return axois.request({
+    url: `/pPassUser/LotteryPayInfo`,
+    method: "post",
+    data: {
+      ...data,
+    },
+  });
+}

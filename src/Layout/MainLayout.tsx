@@ -412,7 +412,7 @@ const MainLayout: React.FC = () => {
   }, [connectWallet]);
 
   useEffect(() => {
-    LoginFun();
+    // LoginFun();
   }, [web3React.account]);
 
   useEffect(() => {
