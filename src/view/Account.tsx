@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ConnectWallet from "../components/topBar";
 
+import copy from "copy-to-clipboard"; 
+import { addMessage } from "../utils/tool";
+import { useWeb3React } from "@web3-react/core"; 
+import {Contracts} from "../web3"
+
 const Account = () => {
   const { t, i18n } = useTranslation();
 
@@ -11,7 +16,7 @@ const Account = () => {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResize); 
     };
   }, []);
 
@@ -20,6 +25,23 @@ const Account = () => {
     setLan(i18n.language);
   }, [i18n.language]);
 
+  const coppyUrl = (url: string) => {
+    copy(url);
+    addMessage(t("Copy successfully")); 
+  }
+  const web3React = useWeb3React();
+ 
+  const handleReceive = () => { 
+    // addMessage(t("Coming soon"));
+    console.log(Contracts);
+    // console.log(Contracts.example);
+    // Contracts.example.claimRewards(web3React.account) 
+    // Contracts.claimRewards().then(res => {
+    //   console.log(res);
+    // })
+    // claimRewards(web3React.account)
+  }
+
   return (
     <div className="home account">
       <ConnectWallet></ConnectWallet>
@@ -27,17 +49,14 @@ const Account = () => {
       <div className="box3">
         <div className="title1">我的邀请链接：</div>
         <div className="box3-main">
-          <div className="box3-main-li" style={{ border: "none" }}>
-            <div className="box3-main-li-text" style={{ padding: "12px 10px" }}>
-              <div style={{ wordBreak: "break-all", padding: "0px 18px" }}>
-                https://unisat.io/0x0712410F349C8d906A093FE391790E33EECE516D
-              </div>
-            </div>
-          </div>
+          <div className="box3-main-li" style={{border: 'none'}}>
+            <div className="box3-main-li-text" style={{padding: '12px 10px'}}>
+            <div style={{wordBreak:'break-all', padding: '0px 18px'}}>https://unisat.io/{web3React.account}</div>
+            </div> 
+          </div> 
         </div>
-        <div className="box3-submit" style={{ margin: "34px auto 0px 18px" }}>
-          复制
-        </div>
+        <div className="box3-submit" style={{margin: '34px auto 0px 18px'}} 
+        onClick={() => coppyUrl(`https://unisat.io/${web3React.account}`)}>复制</div>
       </div>
       <div className="box3">
         <div className="title1">推荐奖励</div>
@@ -95,7 +114,7 @@ const Account = () => {
             <div className="box3-main-li-num">1234</div>
           </div>
         </div>
-        <div className="box3-submit">领取奖励</div>
+        <div className="box3-submit" onClick={() => {handleReceive()}}>领取23奖励</div>
       </div>
       <div className="title1">邀请记录</div>
       <div className="box4">

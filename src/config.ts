@@ -1,14 +1,15 @@
 import Token from "./ABI/ERC20Token.json";
 import Stake from "./ABI/Stake.json";
 import PassNft from "./ABI/PassNft.json";
+import Ido from "./ABI/Ido.json";
 
 // 正式
 export const LOCAL_KEY = "MBAS_LANG";
-export const isMain = true;
+export const isMain = false;
 // 自己
 export let baseUrl: string = isMain
   ? window.location.origin + "/user/"
-  : "http://120.79.67.226:31089/";
+  : "http://192.168.1.37:18889/";
 export let ContractUrl: string = isMain
   ? "https://bscscan.com/address/"
   : "https://testnet.bscscan.com/address/";
@@ -43,6 +44,7 @@ export const abiObj: abiObjType = {
   TOKEN: Token,
   Stake: Stake,
   PassNft: PassNft,
+  Ido: Ido,
 };
 
 export const Main: contractAddressType = {
@@ -50,6 +52,7 @@ export const Main: contractAddressType = {
   TOKEN: "0xfAF18E53F52122085a8743e2bfb324c0577b98B5",
   Stake: "0x1F04eb30cf5e8e3B367ba5a1AbFbD928a917e4f7",
   PassNft: "0x8c386214CDc77b8c62066e31f0271afB1F0AE1a7",
+  Ido: "0xE891a92d6B83020e6302c5c5F6D981c0A1eD14Fb",
 };
 
 const Test = {
@@ -57,6 +60,7 @@ const Test = {
   TOKEN: "0xEec2f5a9c17C70081Fed402B04b73B55e291e014",
   Stake: "0x71085fb90ADDF878F936589cF12B8772212e58c4",
   PassNft: "0xb6E7b0249becEc75D44843B7Ab62EFaA1E1D403D",
+  Ido: "0x59b8bEa9aCFcf212B7f1a8CB98A4CE912B5c7496",
 };
 
 export const contractAddress: contractAddressType = isMain ? Main : Test;

@@ -13,8 +13,7 @@ export default function Router() {
   return (
     <Suspense fallback={<PageLoding></PageLoding>}>
       <Routes>
-        {/* <Route path="/*" element={<MainLayout />}> */}
-        <Route path="/*">
+        <Route path="/*" element={<MainLayout />}>
           <Route path=":address/">
             <Route index element={<Invite />}></Route>
             <Route path="IDO" element={<IDO />}></Route>

@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { isMain } from "./config";
 import { message } from "antd";
 
+
 declare let window: any;
 
 const MessageBox = styled.div`

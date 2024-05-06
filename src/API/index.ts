@@ -8,7 +8,7 @@ interface LoginData {
 
 export function Login(data: LoginData) {
   return axois.request({
-    url: "/user/loginByPass",
+    url: "/user/login",
     method: "post",
     data: {
       ...data,

@@ -242,4 +242,19 @@ export class Contracts {
       .call({ from: addr });
   }
 
+  
+  //领取奖励
+  claimRewards(addr?: any) {
+    let Contract = new this.web3.eth.Contract(
+      abiObj.Stake,
+      contractAddress.Stake
+    );
+    console.log(addr);
+    console.log(Contract.methods);
+    
+    // return Contract.methods
+    //   .stake(contractAddress.PassNft)
+    //   .send({ from: addr, gasPrice: "5000000000" });
+  }
+
 }

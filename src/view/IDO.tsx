@@ -4,7 +4,7 @@ import { Modal, Pagination, Tooltip } from "antd";
 import { useLayoutEffect, useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getAllAward, getAllInvite, getAlldata } from "../API";
-import { AddrHandle, addMessage } from "../utils/tool";
+import { AddrHandle, addMessage, showLoding } from "../utils/tool";
 import { useWeb3React } from "@web3-react/core";
 import { useTranslation } from "react-i18next";
 import copyFun from "copy-to-clipboard";
@@ -273,7 +273,6 @@ const Invite = () => {
   const [curPage, setPage] = useState(1);
   const [winWidth, setWidth] = useState(window.innerWidth);
   const [lan, setLan] = useState<any>();
-
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
