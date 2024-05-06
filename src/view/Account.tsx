@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ConnectWallet from "../components/topBar";
+import { useSelector, useDispatch } from "react-redux";
 
 import copy from "copy-to-clipboard";
 import { addMessage } from "../utils/tool";
-import { useWeb3React } from "@web3-react/core";
-import { Contracts } from "../web3";
+import { useWeb3React } from "@web3-react/core"; 
+import {Contracts} from "../web3"
+import { GetRefereeList } from "../API";
+import { truncateMiddle } from "../utils/truncateMiddle";
 
 const Account = () => {
   const { t, i18n } = useTranslation();
@@ -30,8 +33,14 @@ const Account = () => {
     addMessage(t("Copy successfully"));
   };
   const web3React = useWeb3React();
+<<<<<<< HEAD
 
   const handleReceive = () => {
+=======
+ 
+  const token = useSelector((state: any) => state?.token);
+  const handleReceive = () => { 
+>>>>>>> a7d83257885ebf581f23652bfa4c245b6ea00f8d
     // addMessage(t("Coming soon"));
     console.log(Contracts);
     // console.log(Contracts.example);
@@ -42,13 +51,23 @@ const Account = () => {
     // claimRewards(web3React.account)
   };
 
+  const [list, setList] = useState<any>([])
+  const handleGetRefereeList = async () => { 
+    const { data } = await GetRefereeList() 
+    setList(data)
+  }
+  useEffect( () => {
+    handleGetRefereeList()
+  }, [token]);
+
   return (
     <div className="home account">
-      <ConnectWallet></ConnectWallet>
+      {/* <ConnectWallet></ConnectWallet> */}
       <div className="title1">账号</div>
       <div className="box3">
         <div className="title1">我的邀请链接：</div>
         <div className="box3-main">
+<<<<<<< HEAD
           <div className="box3-main-li" style={{ border: "none" }}>
             <div className="box3-main-li-text" style={{ padding: "12px 10px" }}>
               <div style={{ wordBreak: "break-all", padding: "0px 18px" }}>
@@ -66,6 +85,16 @@ const Account = () => {
         >
           复制
         </div>
+=======
+          <div className="box3-main-li" style={{border: 'none'}}>
+            <div className="box3-main-li-text" style={{padding: '12px 10px'}}>
+            <div style={{wordBreak:'break-all', padding: '0px 18px'}}>https://bep60.com/{web3React.account}/IDO</div>
+            </div> 
+          </div> 
+        </div>
+        <div className="box3-submit" style={{margin: '34px auto 0px 18px'}} 
+        onClick={() => coppyUrl(`https://bep60.com/${web3React.account}/IDO`)}>复制</div>
+>>>>>>> a7d83257885ebf581f23652bfa4c245b6ea00f8d
       </div>
       <div className="box3">
         <div className="title1">推荐奖励</div>
@@ -123,6 +152,7 @@ const Account = () => {
             <div className="box3-main-li-num">1234</div>
           </div>
         </div>
+<<<<<<< HEAD
         <div
           className="box3-submit"
           onClick={() => {
@@ -131,23 +161,28 @@ const Account = () => {
         >
           领取23奖励
         </div>
+=======
+        <div className="box3-submit" onClick={() => {handleReceive()}}>领取奖励</div>
+>>>>>>> a7d83257885ebf581f23652bfa4c245b6ea00f8d
       </div>
-      <div className="title1">邀请记录</div>
-      <div className="box4">
-        <div className="box4-content">
-          <div className="box4-content-top">
-            <div className="li">时间</div>
-            <div className="li">获得BEP60</div>
-            <div className="li">状态</div>
-          </div>
-          <div className="box4-content-bottom">
-            {[1, 2, 3, 4, 5, 6].map((item, key) => (
-              <div className="box4-content-main">
-                <div className="li">2024.04.{key}</div>
-                <div className="li">123456{key}</div>
-                <div className="li">成功</div>
-              </div>
-            ))}
+      <div style={{display: list.length > 0 ? 'block' : 'none'}}>
+        <div className="title1">邀请记录</div>
+        <div className="box4">
+          <div className="box4-content">
+            <div className="box4-content-top">
+              <div className="li">时间</div>
+              <div className="li"></div>
+              <div className="li">地址</div>
+            </div>
+            <div className="box4-content-bottom">
+              {list.map((item:any, key:number) => (
+                <div className="box4-content-main" key={key}>
+                  <div className="li">{item.createTime}</div>
+                  <div className="li"> </div>
+                  <div className="li">{truncateMiddle(item.refereeUserAddress)}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

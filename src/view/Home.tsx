@@ -20,9 +20,14 @@ const Home = () => {
     setLan(i18n.language);
   }, [i18n.language]);
 
+  const [ranking, setRanking] = useState(0);
+  const handleRanking = (val:number) => {
+    setRanking(val)
+  }
+
   return (
     <div className="home">
-      <ConnectWallet></ConnectWallet>
+      {/* <ConnectWallet></ConnectWallet> */}
       <div className="title1">我的交易</div>
       <div className="box1">
         <div className="trading">Trading</div>
@@ -39,8 +44,8 @@ const Home = () => {
       </div>
       <div className="box2">
         <div className="box2-title">
-          <span>交易量排名</span>
-          <span className="on">持币量排名</span>
+          <span className={ranking === 0 ? "on" : ""} onClick={() => {handleRanking(0)}}>交易量排名</span>
+          <span className={ranking === 1 ? "on" : ""} onClick={() => {handleRanking(1)}}>持币量排名</span>
         </div>
         <div className="box2-content">
           <div className="box2-content-top">
