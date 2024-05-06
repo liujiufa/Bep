@@ -29,7 +29,6 @@ const Invite = () => {
     refereeNum: 0,
     refereePassNum: 0,
   });
-  // const [link, setLink] = useState("https://element.market/referral");
   const [headArr, setHead] = useState<string[]>([]);
   const [tbodyArr, setBody] = useState<any>([1, 2]);
   const [totalData, setTotal] = useState(0); //总条数
@@ -100,17 +99,6 @@ const Invite = () => {
       });
     }
   }, [token, type, curPage]);
-
-  // const CopyText = () => {
-  //   const text = spanRef.current?.innerHTML;
-  //   const tempInput = document.createElement("input");
-  //   tempInput.value = text as string;
-  //   document.body.appendChild(tempInput);
-  //   tempInput.select();
-  //   document.execCommand("copy");
-  //   document.body.removeChild(tempInput);
-  //   message.success("复制成功！");
-  // };
 
   const changeCurpage = (e: any) => {
     setPage(e);

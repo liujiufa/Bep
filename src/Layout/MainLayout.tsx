@@ -114,8 +114,6 @@ const ContentContainer = styled(Layout)`
   overflow: hidden;
   @media (max-width: 768px) {
     /* padding: 40px 0px; */
-
-
   }
 `;
 
@@ -139,7 +137,7 @@ const RightSider = styled(FlexBox)`
 
 const SiderSwitchBox = styled(FlexCCBox)`
   margin-left: 8px;
-  >img{
+  > img {
     width: 34px;
     height: 34px;
   }
@@ -411,7 +409,7 @@ const MainLayout: React.FC = () => {
         });
       }, `userAddress=${web3React.account as string}&refereeUserAddress=${refereeUserAddress}`);
     }
-  }, [web3React.account,refereeUserAddress]);
+  }, [web3React.account, refereeUserAddress]);
 
   useEffect(() => {
     connectWallet && connectWallet();
@@ -440,9 +438,7 @@ const MainLayout: React.FC = () => {
   return (
     <div className="UUContainer">
       <ContainerBg1 src={allContainerBg}></ContainerBg1>
-      {/* {String(ItemActive) === "/" && (
-        <ContainerBg1 src={allContainerBg2}></ContainerBg1>
-      )} */}
+
       <HeaderContainer>
         <div className="Header-Edition-Center HeaderNav">
           <div className="switchItem">
@@ -483,16 +479,16 @@ const MainLayout: React.FC = () => {
                 {t("23")}
               </div>
 
-                <div
-                  className={menuActive("/invite")}
-                  onClick={() => {
-                    navigateFun("/invite");
-                  }}
-                >
-                  {t("24")}
-                </div>
+              <div
+                className={menuActive("/invite")}
+                onClick={() => {
+                  navigateFun("/invite");
+                }}
+              >
+                {t("24")}
               </div>
-            )}
+            </div>
+          )}
 
           <RightSider>
             {width > 1024 && (

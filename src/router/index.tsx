@@ -5,6 +5,7 @@ import MainLayout from "../Layout/MainLayout";
 import DeputyLayout from "../Layout/DeputyLayout";
 
 const Invite = React.lazy(() => import("../view/Invite"));
+const IDO = React.lazy(() => import("../view/IDO"));
 
 export default function Router() {
   return (
@@ -13,6 +14,7 @@ export default function Router() {
         <Route path="/*" element={<MainLayout />}>
           <Route path=":address/">
             <Route index element={<Invite />}></Route>
+            <Route path="IDO" element={<IDO />}></Route>
           </Route>
           <Route path="" element={<Invite />}></Route>
         </Route>
