@@ -28,30 +28,30 @@ const Home = () => {
   return (
     <div className="home">
       {/* <ConnectWallet></ConnectWallet> */}
-      <div className="title1">我的交易</div>
+      <div className="title1">{t("6")}</div>
       <div className="box1">
-        <div className="trading">Trading</div>
+        <div className="trading">{t("1")}</div>
         <div className="box1-content">
           <div className="left">
             <div className="num1">123456</div>
-            <div className="num2">总交易量</div>
+            <div className="num2">{t("7")}</div>
           </div>
           <div className="left">
             <div className="num1">123456</div>
-            <div className="num2">当日交易量</div>
+            <div className="num2">{t("8")}</div>
           </div>
         </div>
       </div>
       <div className="box2">
         <div className="box2-title">
-          <span className={ranking === 0 ? "on" : ""} onClick={() => {handleRanking(0)}}>交易量排名</span>
-          <span className={ranking === 1 ? "on" : ""} onClick={() => {handleRanking(1)}}>持币量排名</span>
+          <span className={ranking === 0 ? "on" : ""} onClick={() => {handleRanking(0)}}>{t("9")}</span>
+          <span className={ranking === 1 ? "on" : ""} onClick={() => {handleRanking(1)}}>{t("10")}</span>
         </div>
         <div className="box2-content">
           <div className="box2-content-top">
-            <div className="li">排名</div>
-            <div className="li">地址</div>
-            <div className="li">持币量</div>
+            <div className="li">{t("11")}</div>
+            <div className="li">{t("12")}</div>
+            <div className="li">{t("13")}</div>
           </div>
           <div className="box2-content-bottom">
             {[1, 2, 3, 4, 5, 6].map((item, key) => (
@@ -65,11 +65,11 @@ const Home = () => {
         </div>
       </div>
       <div className="box3">
-        <div className="title1">交易奖励</div>
+        <div className="title1">{t("14")}</div>
         <div className="box3-main">
           <div className="box3-main-li">
             <div className="box3-main-li-text">
-              累计BEP60
+               {t("15")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -95,7 +95,7 @@ const Home = () => {
           </div>
           <div className="box3-main-li">
             <div className="box3-main-li-text">
-              可领取BEP60
+               {t("16")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -120,22 +120,24 @@ const Home = () => {
             <div className="box3-main-li-num">1234</div>
           </div>
         </div>
-        <div className="box3-submit">领取奖励</div>
+        <div className="box3-submit">{t("17")}</div>
       </div>
-      <div className="title1">领取记录</div>
+      <div className="title1">{t("18")}</div>
       <div className="box4">
         <div className="box4-content">
           <div className="box4-content-top">
-            <div className="li">时间</div>
-            <div className="li">获得BEP60</div>
-            <div className="li">状态</div>
+            <div className="li">{t("19")}</div>
+            <div className="li">{t("20")}</div>
+            <div className="li">{t("21")}</div>
           </div>
           <div className="box4-content-bottom">
             {[1, 2, 3, 4, 5, 6].map((item, key) => (
               <div className="box4-content-main">
                 <div className="li">2024.04.{key}</div>
                 <div className="li">123456{key}</div>
-                <div className="li">成功</div>
+                <div className="li">
+                  {key === 1 ? t("22") : t("failed")}  
+                  </div>
               </div>
             ))}
           </div>

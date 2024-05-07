@@ -52,15 +52,16 @@ const Account = () => {
     setList(data);
   };
   useEffect(() => {
+    if (!token) return; 
     handleGetRefereeList();
   }, [token]);
 
   return (
     <div className="home account">
       {/* <ConnectWallet></ConnectWallet> */}
-      <div className="title1">账号</div>
+      <div className="title1">{t("37")}</div>
       <div className="box3">
-        <div className="title1">我的邀请链接：</div>
+        <div className="title1">{t("38")}</div>
         <div className="box3-main">
           <div className="box3-main-li" style={{ border: "none" }}>
             <div className="box3-main-li-text" style={{ padding: "12px 10px" }}>
@@ -77,15 +78,15 @@ const Account = () => {
             coppyUrl(window.location.origin + "/" + web3React.account)
           }
         >
-          复制
+          {t("39")}
         </div>
       </div>
       <div className="box3">
-        <div className="title1">推荐奖励</div>
+        <div className="title1">{t("40")}</div>
         <div className="box3-main">
           <div className="box3-main-li">
             <div className="box3-main-li-text">
-              累计BEP60
+            {t("41")}BEP60
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -111,7 +112,7 @@ const Account = () => {
           </div>
           <div className="box3-main-li">
             <div className="box3-main-li-text">
-              可领取BEP60
+            {t("42")}BEP60
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -142,17 +143,17 @@ const Account = () => {
             handleReceive();
           }}
         >
-          领取奖励
+          {t("43")}
         </div>
       </div>
-      <div>
-        <div className="title1">邀请记录</div>
+      <div style={{display: list.length > 0 ? "block" : "none"}}>
+        <div className="title1">{t("44")}</div>
         <div className="box4">
           <div className="box4-content">
             <div className="box4-content-top">
-              <div className="li">时间</div>
+              <div className="li">{t("35")}</div>
               <div className="li"></div>
-              <div className="li">地址</div>
+              <div className="li">{t("45")}</div>
             </div>
             <div className="box4-content-bottom">
               {list.map((item: any, key: number) => (

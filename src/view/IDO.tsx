@@ -105,6 +105,7 @@ const ProcessBox = styled(FlexBox)`
   border-radius: 10px;
   background: #31353f;
   height: fit-content;
+  margin-right: 4px;
   > div {
     height: 12px;
     border-radius: 10px;
@@ -395,13 +396,13 @@ const Invite = () => {
   return (
     <div className="home">
       <AllContainer>
-        <AllContainer_Title>IDO</AllContainer_Title>
+        <AllContainer_Title>{t("2")}</AllContainer_Title>
         <BuyContainer>
           <BuyContainer_Info>
-            <div>MIN：100U=1万币</div>
-            <div>MAX：1000U=10万币</div>
+            <div>{t("23")}：100U=1{t("25")}</div>
+            <div>{t("24")}：1000U=10{t("25")}</div>
             <div>
-              *募资代币锁定钱包，开始交易后需要购买IDO金额的10%来触发解锁IDO代币。
+              *{t("26")}
             </div>
           </BuyContainer_Info>
           <ProcessContainer>
@@ -421,24 +422,24 @@ const Invite = () => {
               ></div>
             </ProcessBox>
             {!!IdoInfo?.maxIdoTokenNum
-              ? NumSplic1(
-                  Number(IdoInfo?.currentIdoTokenNum) /
-                    Number(IdoInfo?.maxIdoTokenNum),
-                  4
-                ) * 100
+              ? (NumSplic1(
+                Number(IdoInfo?.currentIdoTokenNum) /
+                  Number(IdoInfo?.maxIdoTokenNum),
+                4
+              ) * 100).toFixed(2)
               : 0}
             %
           </ProcessContainer>
           {IdoInfo?.idoNum && Number(IdoInfo?.idoNum) > 0 ? (
             <>
               <ToBtnContainer>
-                <Btn active={false}>认购</Btn>{" "}
+                <Btn active={false}>{t("27")}</Btn>{" "}
                 <span
                   onClick={() => {
                     setRecordModal(true);
                   }}
                 >
-                  认购记录 <ToGoIcon />
+                  {t("28")} <ToGoIcon />
                 </span>
               </ToBtnContainer>
               {/* <Btn active={true}>领取</Btn> */}
@@ -457,7 +458,7 @@ const Invite = () => {
                   );
                 }}
               >
-                认购
+                {t("27")}
               </Btn>{" "}
             </ToBtnContainer>
           )}
@@ -465,7 +466,7 @@ const Invite = () => {
         </BuyContainer>
       </AllContainer>
       <div className="box3">
-        <div className="title1">推荐奖励</div>
+        <div className="title1">{t("29")}</div>
         <div className="box3-main">
           {/* <div className="box3-main-li">
             <div className="box3-main-li-text">
@@ -495,7 +496,7 @@ const Invite = () => {
           </div> */}
           <div className="box3-main-li">
             <div className="box3-main-li-text">
-              可领取USDT
+            {t("30")}USDT
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -528,7 +529,7 @@ const Invite = () => {
             getRewardFun(IdoAccountInfo?.amount ?? "0");
           }}
         >
-          领取奖励
+          {t("31")}
         </div>
       </div>
 
@@ -539,23 +540,23 @@ const Invite = () => {
               handleGetUserAccountDetail(1);
             }}
             className={accounttype === 1 ? "on" : ""}
-          >
-            奖励记录
+          > 
+          {t("32")}
           </span>
           <span
             onClick={() => {
               handleGetUserAccountDetail(2);
             }}
             className={accounttype === 2 ? "on" : ""}
-          >
-            领取记录
+          > 
+          {t("33")}
           </span>
         </div>
         <div className="box2-content">
           <div className="box2-content-top">
-            <div className="li">数量</div>
+            <div className="li">{t("34")}</div>
             <div className="li"></div>
-            <div className="li">时间</div>
+            <div className="li">{t("35")}</div>
           </div>
           <div className="box2-content-bottom">
             {accountTypeList.map((item: any, key: number) => (
@@ -592,12 +593,12 @@ const Invite = () => {
               }}
             />
           </ModalContainer_Close>
-          认购记录
+          {t("36")}
           <ModalContainer_Content>
             <ModalContainer_Content_Table>
               <div>
-                <div className="li">时间</div>
-                <div className="li">数量</div>
+                <div className="li">{t("35")}</div>
+                <div className="li">{t("34")}</div>
               </div>
               <div className="content">
                 <div className="li">

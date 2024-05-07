@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import useConnectWallet from "../hooks/useConnectWallet";
 import { truncateMiddle } from "../utils/truncateMiddle";
 import { useWeb3React } from "@web3-react/core";
+import { useTranslation } from 'react-i18next'
+import { LOCAL_KEY } from "../config";
 
 const topBar = (props: any) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -36,7 +38,18 @@ const topBar = (props: any) => {
       setLiKey(1)
     }
   }, [window.location.href]); 
-
+  
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  let { t, i18n } = useTranslation();
+  console.info( 'ttttttt'  )
+  console.info( t  )
+  console.info(  i18n.language )
+  
+  function changeLanguage() {
+    const key = i18n.language === "en" ? "zh" : "en"
+    window.localStorage.setItem(LOCAL_KEY, key);
+    i18n.changeLanguage(key);
+  }
   
   return ( 
     <div className="home">
@@ -49,7 +62,7 @@ const topBar = (props: any) => {
               connectWallet();
             }}
           >
-            {truncateMiddle(web3React?.account) || "Connect Wallet"}
+            {truncateMiddle(web3React?.account) || t("Please link wallet")}
           </div>
           <svg
             onClick={() => {
@@ -140,7 +153,7 @@ const topBar = (props: any) => {
                 <path d="M12.0001 1.71429C11.2855 1.71429 10.5817 1.79008 9.88879 1.93084C9.42323 2.02828 9.12007 2.48302 9.21751 2.95941C9.31496 3.42497 9.76969 3.72813 10.2461 3.63069C10.8199 3.51159 11.4154 3.44663 12.0001 3.44663C16.7207 3.44663 20.5535 7.27941 20.5535 12C20.5535 16.7206 16.7207 20.5534 12.0001 20.5534C7.27947 20.5534 3.44669 16.7206 3.44669 12C3.44669 10.2893 3.95556 8.63279 4.90834 7.21444C5.18984 6.79219 5.51466 6.40241 5.87195 6.03429C6.20759 5.68783 6.19676 5.14647 5.8503 4.81084C5.50383 4.4752 4.96248 4.48602 4.62684 4.83249C4.20458 5.26557 3.81481 5.74196 3.46834 6.25084C2.32067 7.95069 1.71436 9.94287 1.71436 12C1.71436 17.6734 6.32669 22.2857 12.0001 22.2857C17.6735 22.2857 22.2858 17.6734 22.2858 12C22.2858 6.32663 17.6735 1.71429 12.0001 1.71429Z" fill="#A3A3A3"/>
                 <path d="M6.00039 10.5503C6.00039 11.0322 6.37504 11.4264 6.83295 11.4264H17.1671C17.5001 11.4264 17.8123 11.2183 17.9372 10.8898C18.0621 10.5613 17.9996 10.189 17.7603 9.93708L15.0753 7.11173C14.7526 6.77225 14.2219 6.77225 13.8993 7.11173C13.5767 7.45121 13.5767 8.00971 13.8993 8.34919L15.1689 9.68521H6.84335C6.37504 9.67426 6.00039 10.0685 6.00039 10.5503ZM17.9996 13.4523C17.9996 12.9705 17.625 12.5763 17.1671 12.5763H6.83295C6.49992 12.5763 6.18772 12.7843 6.06283 13.1129C5.93795 13.4414 6.00039 13.8137 6.23975 14.0656L8.92475 16.891C9.09126 17.0662 9.2994 17.1428 9.51794 17.1428C9.73649 17.1428 9.94463 17.0552 10.1111 16.891C10.4338 16.5515 10.4338 15.993 10.1111 15.6535L8.84149 14.3175H17.1671C17.625 14.3284 17.9996 13.9342 17.9996 13.4523Z" fill="#A3A3A3"/>
               </svg>
-              Trading
+              {t("1")}
             </div>
             <div
               className={liKey === 2 ? "harder-mask-li harder-mask-li-on" : "harder-mask-li"}
@@ -173,7 +186,7 @@ const topBar = (props: any) => {
                   </linearGradient>
                 </defs>
               </svg>
-              IDO
+              {t("2")}
             </div>
             <div
               className={liKey === 3 ? "harder-mask-li harder-mask-li-on" : "harder-mask-li"}
@@ -205,9 +218,11 @@ const topBar = (props: any) => {
                   </linearGradient>
                 </defs>
               </svg>
-              账号
+              {t("5")}
             </div>
-            <div className="harder-mask-li">
+            <div className="harder-mask-li" onClick={() => {
+              changeLanguage()
+            }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -220,7 +235,7 @@ const topBar = (props: any) => {
                   fill="#A3A3A3"
                 />
               </svg>
-              繁体中文
+              {i18n.language === "en" ? t("4") :  t("3")  }
             </div>
           </div>
         </div>
