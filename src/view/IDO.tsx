@@ -376,12 +376,11 @@ const Invite = () => {
       return addMessage(t("50"));
     }
     showLoding(false);
-    if (!!res?.status) {
-      showLoding(false);
+    setBuyModal(false)
+    if (!!res?.status) { 
       getContractData();
       return addMessage(t("51"));
-    } else {
-      showLoding(false);
+    } else { 
       return addMessage(t("50"));
     }
   };
@@ -426,7 +425,7 @@ const Invite = () => {
   }, [token]);
   
   const [buyModal, setBuyModal] = useState<boolean>(false);
-  const [buyNumber, setBuyNumber] = useState();
+  const [buyNumber, setBuyNumber] = useState(0);
 
   return (
     <div className="home">
@@ -683,9 +682,12 @@ const Invite = () => {
                   onChange={(e: any) => { 
                     setBuyNumber(e.target.value)
                   }} 
+                  value={buyNumber}
                   placeholder={t("48") + '(100~1000)'}
                 />
-                <span>{t("24")}</span>
+                <span onClick={() => { 
+                  setBuyNumber(1000)
+                }}>{t("24")}</span>
               </div>
               <div className="tips">*{t("47")}</div>
             </ModalContainer_Content_Table>
