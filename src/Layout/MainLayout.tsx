@@ -445,7 +445,7 @@ const MainLayout: React.FC = () => {
     <div className="UUContainer">
       <ContainerBg1 src={allContainerBg}></ContainerBg1>
 
-      <TopBar /> 
+      <TopBar />
 
       <ContentContainer className="MainContent">
         <Outlet />

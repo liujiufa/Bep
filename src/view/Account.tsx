@@ -53,7 +53,7 @@ const Account = () => {
     setList(data);
   };
   useEffect(() => {
-    if (!token) return; 
+    if (!token) return;
     handleGetRefereeList();
   }, [token]);
 
@@ -87,7 +87,7 @@ const Account = () => {
         <div className="box3-main">
           <div className="box3-main-li">
             <div className="box3-main-li-text">
-            {t("41")}BEP60
+              {t("41")}BEP60
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -113,7 +113,7 @@ const Account = () => {
           </div>
           <div className="box3-main-li">
             <div className="box3-main-li-text">
-            {t("42")}BEP60
+              {t("42")}BEP60
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -147,7 +147,7 @@ const Account = () => {
           {t("43")}
         </div>
       </div>
-      <div  >
+      <div>
         <div className="title1">{t("44")}</div>
         <div className="box4">
           <div className="box4-content">

@@ -290,31 +290,31 @@ const ModalContainer_Content_Table = styled.div`
     }
   }
   .input-main {
-    display: flex; 
+    display: flex;
     align-items: center;
     padding: 16px;
     border-radius: 10px;
-    background: #31353F;
-    color: #FFF;
+    background: #31353f;
+    color: #fff;
     font-size: 14px;
-    input{
+    input {
       flex: 1;
       margin-right: 10px;
       background: none;
       border: none;
-      font-weight: 700; 
+      font-weight: 700;
     }
-    span{ 
-      font-feature-settings: 'clig' off, 'liga' off; 
-      font-weight: 700; 
+    span {
+      font-feature-settings: "clig" off, "liga" off;
+      font-weight: 700;
     }
   }
-  .tips{
-    color: rgba(255, 255, 255, 0.50);
-    font-feature-settings: 'clig' off, 'liga' off;
+  .tips {
+    color: rgba(255, 255, 255, 0.5);
+    font-feature-settings: "clig" off, "liga" off;
     font-family: Inter;
-    font-size: 12px; 
-    font-weight: 700; 
+    font-size: 12px;
+    font-weight: 700;
     padding: 8px 0px 30px 0px;
   }
 `;
@@ -373,11 +373,11 @@ const Invite = () => {
       return addMessage(t("50"));
     }
     showLoding(false);
-    setBuyModal(false)
-    if (!!res?.status) { 
+    setBuyModal(false);
+    if (!!res?.status) {
       getContractData();
       return addMessage(t("51"));
-    } else { 
+    } else {
       return addMessage(t("50"));
     }
   };
@@ -408,16 +408,16 @@ const Invite = () => {
     getContractData();
   }, [account]);
 
-  const [accounttype, setAccountType] = useState<any>(1); 
+  const [accounttype, setAccountType] = useState<any>(1);
   const handleGetUserAccountDetail = async (type: number) => {
-    setAccountType(type); 
+    setAccountType(type);
   };
   useEffect(() => {
     if (token) {
       handleGetUserAccountDetail(1);
     }
   }, [token]);
-  
+
   const [buyModal, setBuyModal] = useState<boolean>(false);
   const [buyNumber, setBuyNumber] = useState<number>();
 
@@ -427,11 +427,13 @@ const Invite = () => {
         <AllContainer_Title>{t("2")}</AllContainer_Title>
         <BuyContainer>
           <BuyContainer_Info>
-            <div>{t("23")}：100U=1{t("25")}</div>
-            <div>{t("24")}：1000U=10{t("25")}</div>
             <div>
-              *{t("26")}
+              {t("23")}：100U=1{t("25")}
             </div>
+            <div>
+              {t("24")}：1000U=10{t("25")}
+            </div>
+            <div>*{t("26")}</div>
           </BuyContainer_Info>
           <ProcessContainer>
             <ProcessBox>
@@ -450,11 +452,13 @@ const Invite = () => {
               ></div>
             </ProcessBox>
             {!!IdoInfo?.maxIdoTokenNum
-              ? (NumSplic1(
-                Number(IdoInfo?.currentIdoTokenNum) /
-                  Number(IdoInfo?.maxIdoTokenNum),
-                4
-              ) * 100).toFixed(2)
+              ? (
+                  NumSplic1(
+                    Number(IdoInfo?.currentIdoTokenNum) /
+                      Number(IdoInfo?.maxIdoTokenNum),
+                    4
+                  ) * 100
+                ).toFixed(2)
               : 0}
             %
           </ProcessContainer>
@@ -484,7 +488,7 @@ const Invite = () => {
                   //     buyIdo();
                   //   }
                   // );
-                  setBuyModal(true)
+                  setBuyModal(true);
                 }}
               >
                 {t("27")}
@@ -525,7 +529,7 @@ const Invite = () => {
           </div> */}
           <div className="box3-main-li">
             <div className="box3-main-li-text">
-            {t("30")}USDT
+              {t("30")}USDT
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -569,16 +573,16 @@ const Invite = () => {
               handleGetUserAccountDetail(1);
             }}
             className={accounttype === 1 ? "on" : ""}
-          > 
-          {t("32")}
+          >
+            {t("32")}
           </span>
           <span
             onClick={() => {
               handleGetUserAccountDetail(2);
             }}
             className={accounttype === 2 ? "on" : ""}
-          > 
-          {t("33")}
+          >
+            {t("33")}
           </span>
         </div>
         <div className="box2-content">
@@ -588,7 +592,7 @@ const Invite = () => {
             <div className="li">{t("35")}</div>
           </div>
           <div className="box2-content-bottom">
-            <ClaimRecord accounttype={accounttype}></ClaimRecord> 
+            <ClaimRecord accounttype={accounttype}></ClaimRecord>
           </div>
         </div>
       </div>
@@ -640,7 +644,6 @@ const Invite = () => {
         </ModalContainer>
       </AllModal>
 
-      
       <AllModal
         visible={buyModal}
         className="Modal"
@@ -648,8 +651,8 @@ const Invite = () => {
         width={"340px"}
         closable={false}
         footer={null}
-        onCancel={() => { 
-          setBuyModal(false)
+        onCancel={() => {
+          setBuyModal(false);
         }}
       >
         <ModalContainer>
@@ -658,7 +661,7 @@ const Invite = () => {
             {" "}
             <CloseIcon
               onClick={() => {
-                setBuyModal(false)
+                setBuyModal(false);
               }}
             />
           </ModalContainer_Close>
@@ -667,33 +670,42 @@ const Invite = () => {
             <ModalContainer_Content_Table>
               <div className="input-main">
                 <input
-                  type='text'
-                  onChange={(e: any) => { 
-                    setBuyNumber(e.target.value)
-                  }} 
+                  type="text"
+                  onChange={(e: any) => {
+                    setBuyNumber(e.target.value);
+                  }}
                   value={buyNumber}
-                  placeholder={t("48") + '(100~1000)'}
+                  placeholder={t("48") + "(100~1000)"}
                 />
-                <span onClick={() => { 
-                  setBuyNumber(1000)
-                }}>{t("24")}</span>
+                <span
+                  onClick={() => {
+                    setBuyNumber(1000);
+                  }}
+                >
+                  {t("24")}
+                </span>
               </div>
               <div className="tips">*{t("47")}</div>
             </ModalContainer_Content_Table>
-            <Btn active={true} 
-                 onClick={async (event: any) => {
-                  event.stopPropagation();  
-                  if(Number(buyNumber) < 100 || Number(buyNumber) > 1000) { 
-                    addMessage(t("50"));
-                    return
-                  }
-                  await handleTransaction(buyNumber + "", async (call2) => {}).then(
-                    () => {
-                      handleUSDTRefresh();
-                      buyIdo();
-                    }
-                  ); 
-                }}>{t("46")}</Btn>
+            <Btn
+              active={true}
+              onClick={async (event: any) => {
+                event.stopPropagation();
+                if (Number(buyNumber) < 100 || Number(buyNumber) > 1000) {
+                  addMessage(t("50"));
+                  return;
+                }
+                await handleTransaction(
+                  buyNumber + "",
+                  async (call2) => {}
+                ).then(() => {
+                  handleUSDTRefresh();
+                  buyIdo();
+                });
+              }}
+            >
+              {t("46")}
+            </Btn>
           </ModalContainer_Content>
         </ModalContainer>
       </AllModal>

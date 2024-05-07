@@ -21,12 +21,12 @@ const Home = () => {
   }, [i18n.language]);
 
   const [ranking, setRanking] = useState(0);
-  const handleRanking = (val:number) => {
-    setRanking(val)
-  }
+  const handleRanking = (val: number) => {
+    setRanking(val);
+  };
 
   return (
-    <div className="home"> 
+    <div className="home">
       <div className="title1">{t("6")}</div>
       <div className="box1">
         <div className="trading">{t("1")}</div>
@@ -43,8 +43,22 @@ const Home = () => {
       </div>
       <div className="box2">
         <div className="box2-title">
-          <span className={ranking === 0 ? "on" : ""} onClick={() => {handleRanking(0)}}>{t("9")}</span>
-          <span className={ranking === 1 ? "on" : ""} onClick={() => {handleRanking(1)}}>{t("10")}</span>
+          <span
+            className={ranking === 0 ? "on" : ""}
+            onClick={() => {
+              handleRanking(0);
+            }}
+          >
+            {t("9")}
+          </span>
+          <span
+            className={ranking === 1 ? "on" : ""}
+            onClick={() => {
+              handleRanking(1);
+            }}
+          >
+            {t("10")}
+          </span>
         </div>
         <div className="box2-content">
           <div className="box2-content-top">
@@ -68,7 +82,7 @@ const Home = () => {
         <div className="box3-main">
           <div className="box3-main-li">
             <div className="box3-main-li-text">
-               {t("15")}
+              {t("15")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -94,7 +108,7 @@ const Home = () => {
           </div>
           <div className="box3-main-li">
             <div className="box3-main-li-text">
-               {t("16")}
+              {t("16")}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -138,11 +152,11 @@ const Home = () => {
                   {key === 1 ? t("22") : t("failed")}  
                   </div>
               </div>
-            ))} */} 
+            ))} */}
             <ClaimRecord />
           </div>
         </div>
-      </div>  
+      </div>
       <br />
       <br />
       <br />
