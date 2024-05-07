@@ -363,10 +363,6 @@ const Invite = () => {
   };
 
   const buyIdo = async () => {
-    if(Number(buyNumber) < 100 || Number(buyNumber) > 1000) { 
-      addMessage(t("50"));
-      return
-    }
     showLoding(true);
     let res;
     try {
@@ -425,7 +421,7 @@ const Invite = () => {
   }, [token]);
   
   const [buyModal, setBuyModal] = useState<boolean>(false);
-  const [buyNumber, setBuyNumber] = useState(0);
+  const [buyNumber, setBuyNumber] = useState<number>();
 
   return (
     <div className="home">
@@ -494,7 +490,7 @@ const Invite = () => {
                 }}
               >
                 {t("27")}
-              </Btn>{" "}
+              </Btn>
             </ToBtnContainer>
           )}
           <img src={BuyContainerBg} alt="" />
@@ -693,7 +689,11 @@ const Invite = () => {
             </ModalContainer_Content_Table>
             <Btn active={true} 
                  onClick={async (event: any) => {
-                  event.stopPropagation(); 
+                  event.stopPropagation();  
+                  if(Number(buyNumber) < 100 || Number(buyNumber) > 1000) { 
+                    addMessage(t("50"));
+                    return
+                  }
                   await handleTransaction(buyNumber + "", async (call2) => {}).then(
                     () => {
                       handleUSDTRefresh();
