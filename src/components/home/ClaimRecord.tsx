@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useTranslation } from "react-i18next";
+import { useSelector } from 'react-redux';
 
 export default function Loding() {
     const [items, setItems] = useState<any>(Array.from({ length: 20 }));
@@ -16,11 +17,13 @@ export default function Loding() {
         }, 1500);
       };
       const { t, i18n } = useTranslation();
+    const token = useSelector((state: any) => state?.token);
 
   return (
     <div> 
         <InfiniteScroll
           dataLength={items.length}
+          style={{display: items.length > 0 || token ? 'block' : 'none' }}
           next={fetchMoreData}
           hasMore={hasMore}
           loader={<h4 style={{ textAlign: "center", color: "#16191e", padding: "10px 0px" }}>Loading...</h4>} 

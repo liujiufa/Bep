@@ -408,12 +408,9 @@ const Invite = () => {
     getContractData();
   }, [account]);
 
-  const [accounttype, setAccountType] = useState<any>(1);
-  const [accountTypeList, setAccountTypeList] = useState<any>([]);
+  const [accounttype, setAccountType] = useState<any>(1); 
   const handleGetUserAccountDetail = async (type: number) => {
-    setAccountType(type);
-    // const { data } = await GetUserAccountDetail(type);
-    // setAccountTypeList(data);
+    setAccountType(type); 
   };
   useEffect(() => {
     if (token) {
@@ -591,16 +588,7 @@ const Invite = () => {
             <div className="li">{t("35")}</div>
           </div>
           <div className="box2-content-bottom">
-            <ClaimRecord accounttype={accounttype}></ClaimRecord>
-            {/* {accountTypeList.map((item: any, key: number) => (
-              <div className="box2-content-main" key={key}>
-                <div className="li">{item.amount}</div>
-                <div className="li"></div>
-                <div className="li">
-                  {dateFormat("YYYY-mm-dd", new Date(item.createTime))}
-                </div>
-              </div>
-            ))} */}
+            <ClaimRecord accounttype={accounttype}></ClaimRecord> 
           </div>
         </div>
       </div>

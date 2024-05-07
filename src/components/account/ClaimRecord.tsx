@@ -35,7 +35,7 @@ export default function Loding() {
   return (
     <div> 
         <InfiniteScroll
-          style={{display: items.length > 0 || !token ? 'block' : 'none' }}
+          style={{display: items.length > 0 || token ? 'block' : 'none' }}
           dataLength={items.length}
           next={fetchMoreData}
           hasMore={hasMore}

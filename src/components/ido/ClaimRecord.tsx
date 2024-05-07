@@ -48,7 +48,7 @@ export default function Loding(props: any) {
   return (
     <div> 
         <InfiniteScroll
-          style={{display: accountTypeList.length > 0 || !token ? 'block' : 'none' }}
+          style={{display: accountTypeList.length > 0 || token ? 'block' : 'none' }}
           dataLength={accountTypeList.length}
           next={fetchMoreData}
           hasMore={hasMore}

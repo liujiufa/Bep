@@ -6,6 +6,7 @@ import { truncateMiddle } from "../utils/truncateMiddle";
 import { useWeb3React } from "@web3-react/core";
 import { useTranslation } from 'react-i18next'
 import { LOCAL_KEY } from "../config";
+import { useSelector } from "react-redux";
 
 const topBar = (props: any) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -50,6 +51,8 @@ const topBar = (props: any) => {
     window.localStorage.setItem(LOCAL_KEY, key);
     i18n.changeLanguage(key);
   }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const token = useSelector((state: any) => state?.token);
   
   return ( 
     <div className="home">
@@ -62,7 +65,7 @@ const topBar = (props: any) => {
               connectWallet();
             }}
           >
-            {truncateMiddle(web3React?.account) || t("Please link wallet")}
+            {token ? truncateMiddle(web3React?.account) : t("Please link wallet")}
           </div>
           <svg
             onClick={() => {
