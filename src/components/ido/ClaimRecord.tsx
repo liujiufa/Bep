@@ -7,17 +7,11 @@ import { dateFormat } from '../../utils/tool';
 import { truncateMiddle } from '../../utils/truncateMiddle';
 
 export default function Loding(props: any) {
-    const [items, setItems] = useState<any>(Array.from({ length: 20 }));
+  const [items, setItems] = useState<any>([]);
     const [hasMore, setHasMore] = useState(true); 
     
-    const fetchMoreData = () => {
-      if (items.length >= 100) {
-          setHasMore(false)
-        return;
-      } 
-      setTimeout(() => { 
-        setItems(items.concat(Array.from({ length: 20 })))
-      }, 1500);
+    const fetchMoreData = () => { 
+      handleGetUserAccountDetail(props.accounttype);
     };
     const { t, i18n } = useTranslation();
     const token = useSelector((state: any) => state?.token);
@@ -27,8 +21,12 @@ export default function Loding(props: any) {
     const handleGetUserAccountDetail = async (type: number) => {
       if (!token) {return}
       setAccountType(props.accounttype);
-      const { data } = await GetUserAccountDetail(type);
-      setAccountTypeList(data);
+      const data:any = await GetUserAccountDetail(type);
+      if (items.length >= data) {
+          setHasMore(false)
+         return;
+      }  
+      setAccountTypeList(data.data);  
     }; 
     
     useEffect(() => {

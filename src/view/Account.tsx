@@ -147,7 +147,7 @@ const Account = () => {
           {t("43")}
         </div>
       </div>
-      <div style={{display: list.length > 0 ? "block" : "none"}}>
+      <div  >
         <div className="title1">{t("44")}</div>
         <div className="box4">
           <div className="box4-content">
