@@ -9,6 +9,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Contracts } from "../web3";
 import { GetRefereeList } from "../API";
 import { truncateMiddle } from "../utils/truncateMiddle";
+import ClaimRecord from "../components/account/ClaimRecord";
 
 const Account = () => {
   const { t, i18n } = useTranslation();
@@ -156,7 +157,8 @@ const Account = () => {
               <div className="li">{t("45")}</div>
             </div>
             <div className="box4-content-bottom">
-              {list.map((item: any, key: number) => (
+              <ClaimRecord></ClaimRecord>
+              {/* {list.map((item: any, key: number) => (
                 <div className="box4-content-main" key={key}>
                   <div className="li">
                     {dateFormat("YYYY-mm-dd", new Date(item.createTime))}
@@ -166,7 +168,7 @@ const Account = () => {
                     {truncateMiddle(item.userAddress)}
                   </div>
                 </div>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>

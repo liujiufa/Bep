@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import ConnectWallet from "../components/topBar";
+import ClaimRecord from "../components/home/ClaimRecord";
 
 const Home = () => {
   const { t, i18n } = useTranslation();
@@ -26,8 +26,7 @@ const Home = () => {
   }
 
   return (
-    <div className="home">
-      {/* <ConnectWallet></ConnectWallet> */}
+    <div className="home"> 
       <div className="title1">{t("6")}</div>
       <div className="box1">
         <div className="trading">{t("1")}</div>
@@ -131,7 +130,7 @@ const Home = () => {
             <div className="li">{t("21")}</div>
           </div>
           <div className="box4-content-bottom">
-            {[1, 2, 3, 4, 5, 6].map((item, key) => (
+            {/* {[1, 2, 3, 4, 5, 6].map((item, key) => (
               <div className="box4-content-main">
                 <div className="li">2024.04.{key}</div>
                 <div className="li">123456{key}</div>
@@ -139,10 +138,11 @@ const Home = () => {
                   {key === 1 ? t("22") : t("failed")}  
                   </div>
               </div>
-            ))}
+            ))} */} 
+            <ClaimRecord />
           </div>
         </div>
-      </div>
+      </div>  
       <br />
       <br />
       <br />

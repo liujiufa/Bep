@@ -28,6 +28,7 @@ import useUSDTGroup from "../hooks/useUSDTGroup";
 import { contractAddress } from "../config";
 import { decimalNum } from "../utils/decimalNum";
 import { useGetReward } from "../hooks/useGetReward";
+import ClaimRecord from "../components/ido/ClaimRecord";
 interface Data {
   refereeCreditAll: number;
   refereeNum: number;
@@ -411,8 +412,8 @@ const Invite = () => {
   const [accountTypeList, setAccountTypeList] = useState<any>([]);
   const handleGetUserAccountDetail = async (type: number) => {
     setAccountType(type);
-    const { data } = await GetUserAccountDetail(type);
-    setAccountTypeList(data);
+    // const { data } = await GetUserAccountDetail(type);
+    // setAccountTypeList(data);
   };
   useEffect(() => {
     if (token) {
@@ -590,7 +591,8 @@ const Invite = () => {
             <div className="li">{t("35")}</div>
           </div>
           <div className="box2-content-bottom">
-            {accountTypeList.map((item: any, key: number) => (
+            <ClaimRecord accounttype={accounttype}></ClaimRecord>
+            {/* {accountTypeList.map((item: any, key: number) => (
               <div className="box2-content-main" key={key}>
                 <div className="li">{item.amount}</div>
                 <div className="li"></div>
@@ -598,7 +600,7 @@ const Invite = () => {
                   {dateFormat("YYYY-mm-dd", new Date(item.createTime))}
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
       </div>
