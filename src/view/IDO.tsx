@@ -288,6 +288,34 @@ const ModalContainer_Content_Table = styled.div`
       padding: 20px 0px;
     }
   }
+  .input-main {
+    display: flex; 
+    align-items: center;
+    padding: 16px;
+    border-radius: 10px;
+    background: #31353F;
+    color: #FFF;
+    font-size: 14px;
+    input{
+      flex: 1;
+      margin-right: 10px;
+      background: none;
+      border: none;
+      font-weight: 700; 
+    }
+    span{ 
+      font-feature-settings: 'clig' off, 'liga' off; 
+      font-weight: 700; 
+    }
+  }
+  .tips{
+    color: rgba(255, 255, 255, 0.50);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 12px; 
+    font-weight: 700; 
+    padding: 8px 0px 30px 0px;
+  }
 `;
 
 const Invite = () => {
@@ -335,27 +363,31 @@ const Invite = () => {
   };
 
   const buyIdo = async () => {
+    if(Number(buyNumber) < 100 || Number(buyNumber) > 1000) { 
+      addMessage(t("50"));
+      return
+    }
     showLoding(true);
     let res;
     try {
-      res = await Contracts.example?.buyIdo(account as string, 100 + "");
+      res = await Contracts.example?.buyIdo(account as string, buyNumber + "");
     } catch (error: any) {
       showLoding(false);
-      return addMessage("购买失败");
+      return addMessage(t("50"));
     }
     showLoding(false);
     if (!!res?.status) {
       showLoding(false);
       getContractData();
-      return addMessage("购买成功");
+      return addMessage(t("51"));
     } else {
       showLoding(false);
-      return addMessage("购买失败");
+      return addMessage(t("50"));
     }
   };
 
   const getRewardFun = (amount: any) => {
-    if (Number(amount) <= 0) return addMessage(t("无法领取"));
+    if (Number(amount) <= 0) return addMessage(t("52"));
     getReward(1, getData, () => {}, "Ido");
   };
 
@@ -392,6 +424,9 @@ const Invite = () => {
       handleGetUserAccountDetail(1);
     }
   }, [token]);
+  
+  const [buyModal, setBuyModal] = useState<boolean>(false);
+  const [buyNumber, setBuyNumber] = useState();
 
   return (
     <div className="home">
@@ -450,12 +485,13 @@ const Invite = () => {
                 active={true}
                 onClick={async (event: any) => {
                   event.stopPropagation();
-                  await handleTransaction(100 + "", async (call2) => {}).then(
-                    () => {
-                      handleUSDTRefresh();
-                      buyIdo();
-                    }
-                  );
+                  // await handleTransaction(100 + "", async (call2) => {}).then(
+                  //   () => {
+                  //     handleUSDTRefresh();
+                  //     buyIdo();
+                  //   }
+                  // );
+                  setBuyModal(true)
                 }}
               >
                 {t("27")}
@@ -612,6 +648,57 @@ const Invite = () => {
                 <div className="li">{IdoBuyRecord?.payAmount}</div>
               </div>
             </ModalContainer_Content_Table>
+          </ModalContainer_Content>
+        </ModalContainer>
+      </AllModal>
+
+      
+      <AllModal
+        visible={buyModal}
+        className="Modal"
+        centered
+        width={"340px"}
+        closable={false}
+        footer={null}
+        onCancel={() => { 
+          setBuyModal(false)
+        }}
+      >
+        <ModalContainer>
+          {/* <HomeContainerBox_Content_Bg3></HomeContainerBox_Content_Bg3> */}
+          <ModalContainer_Close>
+            {" "}
+            <CloseIcon
+              onClick={() => {
+                setBuyModal(false)
+              }}
+            />
+          </ModalContainer_Close>
+          {t("46")}
+          <ModalContainer_Content>
+            <ModalContainer_Content_Table>
+              <div className="input-main">
+                <input
+                  type='text'
+                  onChange={(e: any) => { 
+                    setBuyNumber(e.target.value)
+                  }} 
+                  placeholder={t("48") + '(100~1000)'}
+                />
+                <span>{t("24")}</span>
+              </div>
+              <div className="tips">*{t("47")}</div>
+            </ModalContainer_Content_Table>
+            <Btn active={true} 
+                 onClick={async (event: any) => {
+                  event.stopPropagation(); 
+                  await handleTransaction(buyNumber + "", async (call2) => {}).then(
+                    () => {
+                      handleUSDTRefresh();
+                      buyIdo();
+                    }
+                  ); 
+                }}>{t("46")}</Btn>
           </ModalContainer_Content>
         </ModalContainer>
       </AllModal>

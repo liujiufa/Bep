@@ -222,6 +222,7 @@ const topBar = (props: any) => {
             </div>
             <div className="harder-mask-li" onClick={() => {
               changeLanguage()
+              setShowLoding(!showLoding);
             }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -235,7 +236,7 @@ const topBar = (props: any) => {
                   fill="#A3A3A3"
                 />
               </svg>
-              {i18n.language === "en" ? t("4") :  t("3")  }
+              {i18n.language === "en" ? t("3") :  t("4")  }
             </div>
           </div>
         </div>
