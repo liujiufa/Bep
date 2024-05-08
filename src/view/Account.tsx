@@ -58,7 +58,7 @@ const Account = () => {
   }, [token]);
 
   return (
-    <div className="home account">
+    <div className="home account w-full">
       {/* <ConnectWallet></ConnectWallet> */}
       <div className="title1">{t("37")}</div>
       <div className="box3">
