@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useTranslation } from "react-i18next";
+import { GetRefereeList, GetTradeUserAccountDetail } from "../../API";
 import { useSelector } from "react-redux";
-import { GetTradeUserAccountDetail } from "../../API";
 import { dateFormat } from "../../utils/tool";
+import { truncateMiddle } from "../../utils/truncateMiddle";
 
 export default function Loding() {
   const [items, setItems] = useState<any>([]);
@@ -17,7 +18,7 @@ export default function Loding() {
 
   const handleGetRefereeList = async () => {
     if (!token) return;
-    const data: any = await GetTradeUserAccountDetail(2);
+    const data: any = await GetTradeUserAccountDetail(1);
     if (items.length >= data) {
       setHasMore(false);
       return;
@@ -32,8 +33,8 @@ export default function Loding() {
   return (
     <div>
       <InfiniteScroll
-        dataLength={items.length}
         style={{ display: items.length > 0 ? "block" : "none" }}
+        dataLength={items.length}
         next={fetchMoreData}
         hasMore={hasMore}
         loader={
@@ -48,18 +49,16 @@ export default function Loding() {
           </h4>
         }
       >
-        {/* endMessage={
-            <p style={{ textAlign: "center", color: "#16191e", padding: "10px 0px" }}>
-              <b>-- {t("53")} --</b>
-            </p>
-          } */}
-        {items.map((item: any, index: any) => (
-          <div className="box4-content-main" key={index}>
+        {items.map((item: any, key: any) => (
+          <div className="box4-content-main" key={key}>
             <div className="li">
               {dateFormat("YYYY-mm-dd", new Date(item?.createTime))}
             </div>
-            <div className="li">{item?.amount}</div>
-            <div className="li">{t("22")}</div>
+            <div className="li">{item.amount}</div>
+            <div className="li">
+              {item.type}
+              {/* 4-交易发放记录 5-挖坑奖励记录 6挖坑直推奖励 7-挖坑间推奖励 */}
+            </div>
           </div>
         ))}
       </InfiniteScroll>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import ConnectWallet from "../components/topBar";
 import { useSelector, useDispatch } from "react-redux";
 
 import copy from "copy-to-clipboard";
@@ -8,8 +7,8 @@ import { addMessage, dateFormat } from "../utils/tool";
 import { useWeb3React } from "@web3-react/core";
 import { Contracts } from "../web3";
 import { GetRefereeList } from "../API";
-import { truncateMiddle } from "../utils/truncateMiddle";
 import ClaimRecord from "../components/account/ClaimRecord";
+import { useGetRewardBep } from "../hooks/useGetRewardBep";
 
 const Account = () => {
   const { t, i18n } = useTranslation();
@@ -30,6 +29,7 @@ const Account = () => {
   }, [i18n.language]);
 
   const coppyUrl = (url: string) => {
+    if (!token) return;
     copy(url);
     addMessage(t("Copy successfully"));
   };
@@ -57,8 +57,18 @@ const Account = () => {
     handleGetRefereeList();
   }, [token]);
 
+  const getData = () => {
+    setIdoAccountInfo({});
+  };
+  const [IdoAccountInfo, setIdoAccountInfo] = useState<any>({});
+  const { getReward } = useGetRewardBep();
+  const getRewardFun = (amount: any) => {
+    if (Number(amount) <= 0) return addMessage(t("52"));
+    getReward(1, getData, () => {}, "RewardDistribute");
+  };
+
   return (
-    <div className="home account w-full">
+    <div className="home account w-full min-h-screen">
       {/* <ConnectWallet></ConnectWallet> */}
       <div className="title1">{t("37")}</div>
       <div className="box3">
@@ -82,7 +92,7 @@ const Account = () => {
           {t("39")}
         </div>
       </div>
-      <div className="box3">
+      <div className="box3" style={{ display: "none" }}>
         <div className="title1">{t("40")}</div>
         <div className="box3-main">
           <div className="box3-main-li">
@@ -141,7 +151,7 @@ const Account = () => {
         <div
           className="box3-submit"
           onClick={() => {
-            handleReceive();
+            getRewardFun(IdoAccountInfo?.amount ?? "0");
           }}
         >
           {t("43")}

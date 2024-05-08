@@ -2,14 +2,16 @@ import Token from "./ABI/ERC20Token.json";
 import Stake from "./ABI/Stake.json";
 import PassNft from "./ABI/PassNft.json";
 import Ido from "./ABI/Ido.json";
+import RewardDistribute from "./ABI/RewardDistribute.json";
 
 // 正式
 export const LOCAL_KEY = "MBAS_LANG";
 export const isMain = false;
-// 自己
+// 自己 /api
 export let baseUrl: string = isMain
   ? window.location.origin + "/user/"
-  : "https://bep60.com/api";
+  : // : "http://192.168.1.37:18889";
+    "https://bep60.com/api";
 export let ContractUrl: string = isMain
   ? "https://bscscan.com/address/"
   : "https://testnet.bscscan.com/address/";
@@ -45,6 +47,7 @@ export const abiObj: abiObjType = {
   Stake: Stake,
   PassNft: PassNft,
   Ido: Ido,
+  RewardDistribute: RewardDistribute,
 };
 
 export const Main: contractAddressType = {
@@ -53,6 +56,7 @@ export const Main: contractAddressType = {
   Stake: "0x1F04eb30cf5e8e3B367ba5a1AbFbD928a917e4f7",
   PassNft: "0x8c386214CDc77b8c62066e31f0271afB1F0AE1a7",
   Ido: "0xE891a92d6B83020e6302c5c5F6D981c0A1eD14Fb",
+  RewardDistribute: "0xE791D45b8630a207A4F535099063e4e1702947d5",
 };
 
 const Test = {
@@ -61,6 +65,7 @@ const Test = {
   Stake: "0x71085fb90ADDF878F936589cF12B8772212e58c4",
   PassNft: "0xb6E7b0249becEc75D44843B7Ab62EFaA1E1D403D",
   Ido: "0x59b8bEa9aCFcf212B7f1a8CB98A4CE912B5c7496",
+  RewardDistribute: "0xE791D45b8630a207A4F535099063e4e1702947d5",
 };
 
 export const contractAddress: contractAddressType = isMain ? Main : Test;

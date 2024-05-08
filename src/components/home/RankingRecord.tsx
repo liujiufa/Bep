@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { GetTradeUserAccountDetail } from "../../API";
-import { dateFormat } from "../../utils/tool";
+import { GetTradeRank } from "../../API";
+import { truncateMiddle } from "../../utils/truncateMiddle";
 
-export default function Loding() {
+export default function Loding(props: any) {
   const [items, setItems] = useState<any>([]);
   const [hasMore, setHasMore] = useState(true);
 
@@ -16,8 +16,9 @@ export default function Loding() {
   const token = useSelector((state: any) => state?.token);
 
   const handleGetRefereeList = async () => {
+    console.log(props.ranking);
     if (!token) return;
-    const data: any = await GetTradeUserAccountDetail(2);
+    const data: any = await GetTradeRank(props.ranking);
     if (items.length >= data) {
       setHasMore(false);
       return;
@@ -25,9 +26,9 @@ export default function Loding() {
     setItems(data.data);
   };
   useEffect(() => {
-    if (!token) return;
+    setItems([]);
     handleGetRefereeList();
-  }, [token]);
+  }, [props.ranking]);
 
   return (
     <div>
@@ -47,19 +48,20 @@ export default function Loding() {
             Loading...
           </h4>
         }
+        height={items.length > 3 ? 370 : "auto"}
       >
         {/* endMessage={
             <p style={{ textAlign: "center", color: "#16191e", padding: "10px 0px" }}>
               <b>-- {t("53")} --</b>
             </p>
           } */}
-        {items.map((item: any, index: any) => (
-          <div className="box4-content-main" key={index}>
-            <div className="li">
-              {dateFormat("YYYY-mm-dd", new Date(item?.createTime))}
+        {items.map((i: any, index: any) => (
+          <div className="box2-content-main" key={index}>
+            <div className="li w-[60px]" style={{ flex: "none" }}>
+              {i.rankNo}
             </div>
-            <div className="li">{item?.amount}</div>
-            <div className="li">{t("22")}</div>
+            <div className="li">{truncateMiddle(i.userAddress)}</div>
+            <div className="li">{i.num}</div>
           </div>
         ))}
       </InfiniteScroll>

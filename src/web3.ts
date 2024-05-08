@@ -276,4 +276,20 @@ export class Contracts {
 
     return this.contract.Ido?.methods?.userInfos(addr).call({ from: addr });
   }
+
+  // 推荐奖励
+  RewardDistributeBep(
+    addr: string,
+    data: string,
+    contractName: string = "RewardDistribute"
+  ) {
+    this.verification(contractName);
+    let obj = new this.web3.eth.Contract(
+      abiObj[contractName],
+      contractAddress[contractName]
+    );
+    return obj?.methods
+      .withdrawReward(data)
+      .send({ from: addr, gasPrice: "5000000000" });
+  }
 }

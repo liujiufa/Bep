@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+
 import ClaimRecord from "../components/home/ClaimRecord";
+import ClaimRecord2 from "../components/home/ClaimRecord2";
+import RankingRecord from "../components/home/RankingRecord";
+import { useGetRewardBep } from "../hooks/useGetRewardBep";
+import { addMessage } from "../utils/tool";
+import { GetTradeData, GetUserTradeUserAccount } from "../API";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const { t, i18n } = useTranslation();
+  const token = useSelector<any>((state) => state.token);
 
   useEffect(() => {
     const handleResize = () => {};
@@ -20,23 +28,48 @@ const Home = () => {
     setLan(i18n.language);
   }, [i18n.language]);
 
-  const [ranking, setRanking] = useState(0);
+  const [ranking, setRanking] = useState(1);
   const handleRanking = (val: number) => {
     setRanking(val);
   };
+  const [ranking2, setRanking2] = useState(0);
+  const handleRanking2 = (val: number) => {
+    setRanking2(val);
+  };
+
+  const [tradeData, setTradeData] = useState<any>({}); // 交易记录
+  const [rankingUserAccount, setRankingUserAccount] = useState<any>({}); // 交易奖励
+  const getData = async () => {
+    GetTradeData().then((res: any) => {
+      setTradeData(res.data);
+    });
+    GetUserTradeUserAccount().then((res: any) => {
+      setRankingUserAccount(res.data);
+    });
+  };
+  useEffect(() => {
+    if (!token) return;
+    getData();
+  }, [token]);
+
+  const [IdoAccountInfo, setIdoAccountInfo] = useState<any>({});
+  const { getReward } = useGetRewardBep();
+  const getRewardFun = (amount: any) => {
+    getReward(2, getData, () => {}, "RewardDistribute");
+  };
 
   return (
-    <div className="home">
+    <div className="home w-full">
       <div className="title1">{t("6")}</div>
       <div className="box1">
         <div className="trading">{t("1")}</div>
         <div className="box1-content">
           <div className="left">
-            <div className="num1">123456</div>
+            <div className="num1">{tradeData?.totalTradeNum}</div>
             <div className="num2">{t("7")}</div>
           </div>
           <div className="left">
-            <div className="num1">123456</div>
+            <div className="num1">{tradeData?.todayTradeNum}</div>
             <div className="num2">{t("8")}</div>
           </div>
         </div>
@@ -44,17 +77,17 @@ const Home = () => {
       <div className="box2">
         <div className="box2-title">
           <span
-            className={ranking === 0 ? "on" : ""}
+            className={ranking === 1 ? "on" : ""}
             onClick={() => {
-              handleRanking(0);
+              handleRanking(1);
             }}
           >
             {t("9")}
           </span>
           <span
-            className={ranking === 1 ? "on" : ""}
+            className={ranking === 2 ? "on" : ""}
             onClick={() => {
-              handleRanking(1);
+              handleRanking(2);
             }}
           >
             {t("10")}
@@ -62,18 +95,23 @@ const Home = () => {
         </div>
         <div className="box2-content">
           <div className="box2-content-top">
-            <div className="li">{t("11")}</div>
+            <div className="li w-[60px]" style={{ flex: "none" }}>
+              {t("11")}
+            </div>
             <div className="li">{t("12")}</div>
             <div className="li">{t("13")}</div>
           </div>
           <div className="box2-content-bottom">
-            {[1, 2, 3, 4, 5, 6].map((item, key) => (
+            {/* {[1, 2, 3, 4, 5, 6].map((item, key) => (
               <div className="box2-content-main">
-                <div className="li">{key}</div>
+                <div className="li w-[60px]" style={{ flex: "none" }}>
+                  {key}
+                </div>
                 <div className="li">0xc181...617db7</div>
                 <div className="li">1234567</div>
               </div>
-            ))}
+            ))} */}
+            {token ? <RankingRecord ranking={ranking}></RankingRecord> : ""}
           </div>
         </div>
       </div>
@@ -104,7 +142,9 @@ const Home = () => {
                 />
               </svg>
             </div>
-            <div className="box3-main-li-num">123456</div>
+            <div className="box3-main-li-num">
+              {rankingUserAccount?.totalAmount || 0}
+            </div>
           </div>
           <div className="box3-main-li">
             <div className="box3-main-li-text">
@@ -130,32 +170,62 @@ const Home = () => {
                 />
               </svg>
             </div>
-            <div className="box3-main-li-num">1234</div>
+            <div className="box3-main-li-num">
+              {rankingUserAccount?.amount || 0}
+            </div>
           </div>
         </div>
-        <div className="box3-submit">{t("17")}</div>
+        <div
+          className="box3-submit"
+          onClick={() => {
+            getRewardFun(IdoAccountInfo?.amount ?? "0");
+          }}
+        >
+          {t("17")}
+        </div>
       </div>
-      <div className="title1">{t("18")}</div>
+      <div className="box2-title pl-18">
+        <span
+          className={ranking2 === 0 ? "on" : ""}
+          onClick={() => {
+            handleRanking2(0);
+          }}
+        >
+          {t("32")}
+        </span>
+        <span
+          className={ranking2 === 1 ? "on" : ""}
+          onClick={() => {
+            handleRanking2(1);
+          }}
+        >
+          {t("18")}
+        </span>
+      </div>
       <div className="box4">
-        <div className="box4-content">
-          <div className="box4-content-top">
-            <div className="li">{t("19")}</div>
-            <div className="li">{t("20")}</div>
-            <div className="li">{t("21")}</div>
+        {ranking2 === 0 ? (
+          <div className="box4-content">
+            <div className="box4-content-top">
+              <div className="li">{t("19")}</div>
+              <div className="li">{t("34")}</div>
+              <div className="li">{t("54")}</div>
+            </div>
+            <div className="box4-content-bottom">
+              <ClaimRecord2 />
+            </div>
           </div>
-          <div className="box4-content-bottom">
-            {/* {[1, 2, 3, 4, 5, 6].map((item, key) => (
-              <div className="box4-content-main">
-                <div className="li">2024.04.{key}</div>
-                <div className="li">123456{key}</div>
-                <div className="li">
-                  {key === 1 ? t("22") : t("failed")}  
-                  </div>
-              </div>
-            ))} */}
-            <ClaimRecord />
+        ) : (
+          <div className="box4-content">
+            <div className="box4-content-top">
+              <div className="li">{t("19")}</div>
+              <div className="li">{t("20")}</div>
+              <div className="li">{t("21")}</div>
+            </div>
+            <div className="box4-content-bottom">
+              <ClaimRecord />
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <br />
       <br />

@@ -201,11 +201,38 @@ export function drawAward(data: any) {
     },
   });
 }
-  export function GetUserAccountDetail(data?:any) {
-    return axois.request({
-      url: `/user/getUserAccountDetail/${data}`,
-      method: "GET", 
-    });
-  } 
+export function GetUserAccountDetail(data?: any) {
+  return axois.request({
+    url: `/user/getUserAccountDetail/${data}`,
+    method: "GET",
+  });
+}
+// 首页-获取交易数据
+export function GetTradeData(data?: any) {
+  return axois.request({
+    url: `/home/getTradeData`,
+    method: "GET",
+  });
+}
 
-  
+// 首页-获取交易量排名1,持币2
+export function GetTradeRank(type?: any) {
+  return axois.request({
+    url: `/home/getTradeRank/${type}`,
+    method: "GET",
+  });
+}
+// 首页-获取交易账户奖励信息
+export function GetUserTradeUserAccount(data?: any) {
+  return axois.request({
+    url: `/home/getTradeUserAccount`,
+    method: "GET",
+  });
+}
+// 首页-获取交易账户奖励记录和领取记录 type =1奖励记录 =2 领取记录
+export function GetTradeUserAccountDetail(type?: any) {
+  return axois.request({
+    url: `/home/getTradeUserAccountDetail/${type}`,
+    method: "GET",
+  });
+}
