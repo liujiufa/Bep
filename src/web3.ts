@@ -292,4 +292,9 @@ export class Contracts {
       .withdrawReward(data)
       .send({ from: addr, gasPrice: "5000000000" });
   }
+  // 领取奖励
+  ClaimIdoTokenBep(addr: string, contractName: string = "Ido") {
+    this.verification(contractName);
+    return this.contract.Ido?.methods.claimIdoToken().call();
+  }
 }

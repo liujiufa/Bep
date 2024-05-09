@@ -28,6 +28,7 @@ import useUSDTGroup from "../hooks/useUSDTGroup";
 import { contractAddress } from "../config";
 import { decimalNum } from "../utils/decimalNum";
 import { useGetReward } from "../hooks/useGetReward";
+import { useReceiveBep } from "../hooks/useReceiveBep";
 import ClaimRecord from "../components/ido/ClaimRecord";
 interface Data {
   refereeCreditAll: number;
@@ -98,7 +99,7 @@ const ProcessContainer = styled(FlexCCBox)`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  margin-bottom: 32px;
+  margin-bottom: 46px;
 `;
 
 const ProcessBox = styled(FlexBox)`
@@ -146,9 +147,7 @@ const BtnContainer = styled(FlexSCBox)`
     line-height: normal;
   }
 `;
-const ToBtnContainer = styled(BtnContainer)`
-  margin-bottom: 45px;
-`;
+const ToBtnContainer = styled(BtnContainer)``;
 
 const AllModal = styled(Modal)`
   z-index: 10000;
@@ -339,6 +338,7 @@ const Invite = () => {
   const [winWidth, setWidth] = useState(window.innerWidth);
   const [lan, setLan] = useState<any>();
   const { getReward } = useGetReward();
+  const { receiveBep } = useReceiveBep(); // 领取bep
 
   const { TOKENAllowance, TOKENBalance, handleTransaction, handleUSDTRefresh } =
     useUSDTGroup(contractAddress.Ido, "USDT");
@@ -474,26 +474,35 @@ const Invite = () => {
                   {t("28")} <ToGoIcon />
                 </span>
               </ToBtnContainer>
-              {/* <Btn active={true}>领取</Btn> */}
-            </>
-          ) : (
-            <ToBtnContainer>
               <Btn
                 active={true}
-                onClick={async (event: any) => {
-                  event.stopPropagation();
-                  // await handleTransaction(100 + "", async (call2) => {}).then(
-                  //   () => {
-                  //     handleUSDTRefresh();
-                  //     buyIdo();
-                  //   }
-                  // );
-                  setBuyModal(true);
+                onClick={() => {
+                  receiveBep(getData, "Ido");
                 }}
               >
-                {t("27")}
+                {t("59")}
               </Btn>
-            </ToBtnContainer>
+            </>
+          ) : (
+            <>
+              <ToBtnContainer>
+                <Btn
+                  active={true}
+                  onClick={async (event: any) => {
+                    event.stopPropagation();
+                    // await handleTransaction(100 + "", async (call2) => {}).then(
+                    //   () => {
+                    //     handleUSDTRefresh();
+                    //     buyIdo();
+                    //   }
+                    // );
+                    setBuyModal(true);
+                  }}
+                >
+                  {t("27")}
+                </Btn>
+              </ToBtnContainer>
+            </>
           )}
           <img src={BuyContainerBg} alt="" />
         </BuyContainer>
