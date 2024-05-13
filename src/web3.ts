@@ -294,7 +294,12 @@ export class Contracts {
   }
   // 领取奖励
   ClaimIdoTokenBep(addr: string, contractName: string = "Ido") {
-    this.verification(contractName);
-    return this.contract.Ido?.methods.claimIdoToken().call();
+    console.log(addr);
+    console.log(contractName);
+
+    this.verification("Ido");
+    return this.contract.Ido?.methods
+      .claimIdoToken()
+      .send({ from: addr, gasPrice: "5000000000" });
   }
 }
