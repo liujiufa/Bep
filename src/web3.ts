@@ -130,7 +130,7 @@ export class Contracts {
     var amount = Web3.utils.toWei(Number.MAX_SAFE_INTEGER + "", "ether");
     return obj?.methods
       .approve(toaddr, amount)
-      .send({ from: addr, gasPrice: "5000000000" });
+      .send({ from: addr, gasPrice: "10000000000" });
   }
 
   //签名数据
@@ -147,7 +147,7 @@ export class Contracts {
     this.verification("NFT");
     return this.contract.NFT?.methods
       .setApprovalForAll(toAddr, isApprova)
-      .send({ from: addr, gasPrice: "5000000000" });
+      .send({ from: addr, gasPrice: "10000000000" });
   }
 
   //判断NFT授权
@@ -168,7 +168,7 @@ export class Contracts {
     this.verification("Entrance");
     return this.contract.Entrance?.methods
       .boundReferer(toAddr)
-      .send({ from: addr, gasPrice: "5000000000" });
+      .send({ from: addr, gasPrice: "10000000000" });
   }
   withdrawReward(addr: string, data: string, contractName: string = "Ido") {
     this.verification(contractName);
@@ -178,7 +178,7 @@ export class Contracts {
     );
     return obj?.methods
       .withdrawReward(data)
-      .send({ from: addr, gasPrice: "5000000000" });
+      .send({ from: addr, gasPrice: "10000000000" });
   }
   withdrawReward1(addr: string, contractName: string) {
     this.verification(contractName);
@@ -186,7 +186,9 @@ export class Contracts {
       abiObj[contractName],
       contractAddress[contractName]
     );
-    return obj?.methods.withdraw().send({ from: addr, gasPrice: "5000000000" });
+    return obj?.methods
+      .withdraw()
+      .send({ from: addr, gasPrice: "10000000000" });
   }
 
   //撤回
@@ -196,7 +198,7 @@ export class Contracts {
 
     return this.contract.Quantification?.methods
       .unStake()
-      .send({ from: addr, gasPrice: "5000000000" });
+      .send({ from: addr, gasPrice: "10000000000" });
   }
 
   //质押
@@ -209,7 +211,7 @@ export class Contracts {
 
     return Contract.methods
       .stake(contractAddress.PassNft, id)
-      .send({ from: addr, gasPrice: "5000000000" });
+      .send({ from: addr, gasPrice: "10000000000" });
   }
   //撤回
   unStakeNFT(addr: string, data: any) {
@@ -220,7 +222,7 @@ export class Contracts {
     // console.log(contractAddress.Market,tokenId)
     return Contract?.methods
       .unstake(data)
-      .send({ from: addr, gasPrice: "5000000000" });
+      .send({ from: addr, gasPrice: "10000000000" });
   }
 
   approveMarket(addr: string, addr721: string) {
@@ -228,7 +230,7 @@ export class Contracts {
     // console.log(contractAddress.Market,tokenId)
     return Contract.methods
       .setApprovalForAll(contractAddress.Stake, true)
-      .send({ from: addr, gasPrice: "5000000000" });
+      .send({ from: addr, gasPrice: "10000000000" });
   }
   //查询721授权
   getapproveMarket(addr: string, addr721: string) {
@@ -246,7 +248,7 @@ export class Contracts {
 
     // return Contract.methods
     //   .stake(contractAddress.PassNft)
-    //   .send({ from: addr, gasPrice: "5000000000" });
+    //   .send({ from: addr, gasPrice: "10000000000" });
   }
 
   maxIdoTokenNum(addr: string) {
@@ -269,7 +271,7 @@ export class Contracts {
 
     return this.contract.Ido?.methods
       .buyIdo(amounted)
-      .send({ from: addr, gasPrice: "5000000000" });
+      .send({ from: addr, gasPrice: "10000000000" });
   }
   userinfos(addr: string) {
     this.verification("Ido");
@@ -290,16 +292,17 @@ export class Contracts {
     );
     return obj?.methods
       .withdrawReward(data)
-      .send({ from: addr, gasPrice: "5000000000" });
+      .send({ from: addr, gasPrice: "10000000000" });
   }
   // 领取奖励
   ClaimIdoTokenBep(addr: string, contractName: string = "Ido") {
+    console.log("addraddraddraddraddraddraddr");
     console.log(addr);
     console.log(contractName);
 
     this.verification("Ido");
     return this.contract.Ido?.methods
       .claimIdoToken()
-      .send({ from: addr, gasPrice: "5000000000" });
+      .send({ from: addr, gasPrice: "10000000000" });
   }
 }

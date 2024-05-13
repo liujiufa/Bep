@@ -30,6 +30,7 @@ import { decimalNum } from "../utils/decimalNum";
 import { useGetReward } from "../hooks/useGetReward";
 import { useReceiveBep } from "../hooks/useReceiveBep";
 import ClaimRecord from "../components/ido/ClaimRecord";
+import Web3 from "web3";
 interface Data {
   refereeCreditAll: number;
   refereeNum: number;
@@ -342,16 +343,21 @@ const Invite = () => {
 
   const { TOKENAllowance, TOKENBalance, handleTransaction, handleUSDTRefresh } =
     useUSDTGroup(contractAddress.Ido, "USDT");
+  const { TOKENBalance: BEPTOKENBalance } = useUSDTGroup(
+    contractAddress.Ido,
+    "TOKEN"
+  );
   const getContractData = async () => {
     let res1 = await Contracts.example?.maxIdoTokenNum(account as string);
     let res2 = await Contracts.example?.currentIdoTokenNum(account as string);
     let userinfosData = await Contracts.example?.userinfos(account as string);
-    console.log(userinfosData, "userinfosData");
 
     setIdoInfo({
       maxIdoTokenNum: res1,
       currentIdoTokenNum: res2,
       idoNum: userinfosData?.idoNum,
+      withdrawNum: userinfosData?.withdrawNum,
+      tokenNum: userinfosData?.tokenNum,
     });
   };
   const getData = () => {
@@ -477,7 +483,7 @@ const Invite = () => {
               <Btn
                 active={true}
                 onClick={() => {
-                  receiveBep(getData, "Ido");
+                  receiveBep(IdoInfo, BEPTOKENBalance, getData, "Ido");
                 }}
               >
                 {t("59")}
