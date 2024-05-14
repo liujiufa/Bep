@@ -25,7 +25,7 @@ export default function Loding(props: any) {
     }
     setAccountType(props.accounttype);
     const data: any = await GetUserAccountDetail(type);
-    if (items.length >= data) {
+    if (items.length >= data.data.length) {
       setHasMore(false);
       return;
     }

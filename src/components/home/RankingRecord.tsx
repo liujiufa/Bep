@@ -19,7 +19,7 @@ export default function Loding(props: any) {
   const handleGetRefereeList = async () => {
     if (!token) return;
     const data: any = await GetTradeRank(props.ranking);
-    if (items.length >= data) {
+    if (items.length >= data.data.length) {
       setHasMore(false);
       return;
     }

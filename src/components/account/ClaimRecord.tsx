@@ -20,7 +20,7 @@ export default function Loding() {
   const handleGetRefereeList = async () => {
     if (!token) return;
     const data: any = await GetRefereeList();
-    if (items.length >= data) {
+    if (items.length >= data.data.length) {
       setHasMore(false);
       return;
     }

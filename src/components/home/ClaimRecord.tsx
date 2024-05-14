@@ -19,7 +19,7 @@ export default function Loding() {
   const handleGetRefereeList = async () => {
     if (!token) return;
     const data: any = await GetTradeUserAccountDetail(2);
-    if (items.length >= data) {
+    if (items.length >= data.data.length) {
       setHasMore(false);
       return;
     }
