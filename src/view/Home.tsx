@@ -65,7 +65,7 @@ const Home = () => {
         <div className="trading">{t("1")}</div>
         <div className="box1-content">
           <div className="left">
-            <div className="num1">{tradeData?.totalTradeNum}</div>
+            <div className="num1">{tradeData?.totalTradeNum.toFixed(0)}</div>
             <div className="num2">{t("7")}</div>
           </div>
           <div className="left">
