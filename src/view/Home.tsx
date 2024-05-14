@@ -65,12 +65,18 @@ const Home = () => {
         <div className="trading">{t("1")}</div>
         <div className="box1-content">
           <div className="left">
-            <div className="num1">{tradeData?.totalTradeNum.toFixed(0)}</div>
-            <div className="num2">{t("7")}</div>
+            <div className="num1">{tradeData?.todayTradeNum?.toFixed(0)}</div>
+            <div className="num2">{t("8")}</div>
+          </div>
+          <div className="left" style={{ width: "93px", height: "103px" }}>
+            <div className="num1">{tradeData?.totalTradeNum?.toFixed(0)}</div>
+            <div className="num2" style={{ top: "93px" }}>
+              {t("7")}
+            </div>
           </div>
           <div className="left">
-            <div className="num1">{tradeData?.todayTradeNum}</div>
-            <div className="num2">{t("8")}</div>
+            <div className="num1">{tradeData?.myTradeNum?.toFixed(0)}</div>
+            <div className="num2">{t("8_1")}</div>
           </div>
         </div>
       </div>
