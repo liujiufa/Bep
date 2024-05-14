@@ -12,7 +12,12 @@ export default function Loding() {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchMoreData = () => {
-    handleGetRefereeList();
+    if (showNumber < items.length) {
+      setShowNumber(showNumber + 10);
+    } else {
+      setHasMore(false);
+      return;
+    }
   };
   const { t, i18n } = useTranslation();
   const token = useSelector((state: any) => state?.token);
@@ -20,16 +25,14 @@ export default function Loding() {
   const handleGetRefereeList = async () => {
     if (!token) return;
     const data: any = await GetRefereeList();
-    if (items.length >= data.data.length) {
-      setHasMore(false);
-      return;
-    }
     setItems(data.data);
   };
   useEffect(() => {
     if (!token) return;
     handleGetRefereeList();
   }, [token]);
+
+  const [showNumber, setShowNumber] = useState(10);
 
   return (
     <div>
@@ -51,7 +54,11 @@ export default function Loding() {
           }
         >
           {items.map((item: any, key: any) => (
-            <div className="box4-content-main" key={key}>
+            <div
+              className="box4-content-main"
+              key={key}
+              style={{ display: key < showNumber ? "flex" : "none" }}
+            >
               <div className="li">
                 {dateFormat("YYYY-mm-dd", new Date(item?.createTime))}
               </div>

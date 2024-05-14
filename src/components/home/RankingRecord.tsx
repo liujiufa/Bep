@@ -10,8 +10,15 @@ export default function Loding(props: any) {
   const [items, setItems] = useState<any>([]);
   const [hasMore, setHasMore] = useState(true);
 
+  const [showNumber, setShowNumber] = useState(60);
   const fetchMoreData = () => {
-    handleGetRefereeList();
+    // if (showNumber < items.length) {
+    //   setShowNumber(showNumber + 10);
+    // } else {
+    //   setHasMore(false);
+    //   return;
+    // }
+    setHasMore(false);
   };
   const { t, i18n } = useTranslation();
   const token = useSelector((state: any) => state?.token);
@@ -19,10 +26,6 @@ export default function Loding(props: any) {
   const handleGetRefereeList = async () => {
     if (!token) return;
     const data: any = await GetTradeRank(props.ranking);
-    if (items.length >= data.data.length) {
-      setHasMore(false);
-      return;
-    }
     setItems(data.data);
   };
   useEffect(() => {
@@ -56,7 +59,11 @@ export default function Loding(props: any) {
           </p>
         } */}
           {items.map((i: any, index: any) => (
-            <div className="box2-content-main" key={index}>
+            <div
+              className="box2-content-main"
+              key={index}
+              style={{ display: index < showNumber ? "flex" : "none" }}
+            >
               <div className="li w-[60px]" style={{ flex: "none" }}>
                 {i.rankNo}
               </div>

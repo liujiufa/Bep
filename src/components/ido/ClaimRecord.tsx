@@ -11,8 +11,14 @@ export default function Loding(props: any) {
   const [items, setItems] = useState<any>([]);
   const [hasMore, setHasMore] = useState(true);
 
+  const [showNumber, setShowNumber] = useState(10);
   const fetchMoreData = () => {
-    handleGetUserAccountDetail(props.accounttype);
+    if (showNumber < items.length) {
+      setShowNumber(showNumber + 10);
+    } else {
+      setHasMore(false);
+      return;
+    }
   };
   const { t, i18n } = useTranslation();
   const token = useSelector((state: any) => state?.token);
@@ -25,10 +31,6 @@ export default function Loding(props: any) {
     }
     setAccountType(props.accounttype);
     const data: any = await GetUserAccountDetail(type);
-    if (items.length >= data.data.length) {
-      setHasMore(false);
-      return;
-    }
     setAccountTypeList(data.data);
   };
 
@@ -53,7 +55,11 @@ export default function Loding(props: any) {
           loader={""}
         >
           {accountTypeList.map((item: any, key: any) => (
-            <div className="box2-content-main" key={key}>
+            <div
+              className="box2-content-main"
+              key={key}
+              style={{ display: key < showNumber ? "flex" : "none" }}
+            >
               <div className="li">{item.amount}</div>
               <div className="li"></div>
               <div className="li">
