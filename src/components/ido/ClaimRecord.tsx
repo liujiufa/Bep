@@ -11,7 +11,7 @@ export default function Loding(props: any) {
   const [items, setItems] = useState<any>([]);
   const [hasMore, setHasMore] = useState(true);
 
-  const [showNumber, setShowNumber] = useState(10);
+  const [showNumber, setShowNumber] = useState(20);
   const fetchMoreData = () => {
     if (showNumber < items.length) {
       setShowNumber(showNumber + 10);
@@ -49,7 +49,7 @@ export default function Loding(props: any) {
     <div>
       {accountTypeList.length > 0 ? (
         <InfiniteScroll
-          dataLength={accountTypeList.length}
+          dataLength={showNumber}
           next={fetchMoreData}
           hasMore={hasMore}
           loader={""}
