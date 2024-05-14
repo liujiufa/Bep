@@ -14,6 +14,7 @@ export default function Loding() {
   const fetchMoreData = () => {
     if (showNumber < items.length) {
       setShowNumber(showNumber + 10);
+      setHasMore(true);
     } else {
       setHasMore(false);
       return;
@@ -32,13 +33,13 @@ export default function Loding() {
     handleGetRefereeList();
   }, [token]);
 
-  const [showNumber, setShowNumber] = useState(10);
+  const [showNumber, setShowNumber] = useState(20);
 
   return (
     <div>
       {items.length > 0 ? (
         <InfiniteScroll
-          dataLength={items.length}
+          dataLength={showNumber}
           next={fetchMoreData}
           hasMore={hasMore}
           loader={
