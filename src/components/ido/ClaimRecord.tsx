@@ -8,12 +8,11 @@ import { truncateMiddle } from "../../utils/truncateMiddle";
 import NoData from "../NoData";
 
 export default function Loding(props: any) {
-  const [items, setItems] = useState<any>([]);
   const [hasMore, setHasMore] = useState(true);
 
   const [showNumber, setShowNumber] = useState(20);
   const fetchMoreData = () => {
-    if (showNumber < items.length) {
+    if (showNumber < accountTypeList.length) {
       setShowNumber(showNumber + 10);
     } else {
       setHasMore(false);
