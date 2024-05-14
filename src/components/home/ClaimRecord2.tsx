@@ -54,7 +54,7 @@ export default function Loding() {
               <div className="li">
                 {dateFormat("YYYY-mm-dd", new Date(item?.createTime))}
               </div>
-              <div className="li">{item.amount}</div>
+              <div className="li">{item?.amount?.toFixed(4)}</div>
               <div className="li">
                 {item.type === 4
                   ? t("55")

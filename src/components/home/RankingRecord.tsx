@@ -61,7 +61,7 @@ export default function Loding(props: any) {
                 {i.rankNo}
               </div>
               <div className="li">{truncateMiddle(i.userAddress)}</div>
-              <div className="li">{i.num}</div>
+              <div className="li">{i.num?.toFixed(4)}</div>
             </div>
           ))}
         </InfiniteScroll>

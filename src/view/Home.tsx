@@ -149,7 +149,7 @@ const Home = () => {
               </svg>
             </div>
             <div className="box3-main-li-num">
-              {rankingUserAccount?.totalAmount || 0}
+              {rankingUserAccount?.totalAmount?.toFixed(4) || 0}
             </div>
           </div>
           <div className="box3-main-li">
@@ -177,7 +177,7 @@ const Home = () => {
               </svg>
             </div>
             <div className="box3-main-li-num">
-              {rankingUserAccount?.amount || 0}
+              {rankingUserAccount?.amount?.toFixed(4) || 0}
             </div>
           </div>
         </div>
