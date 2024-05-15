@@ -105,7 +105,7 @@ const Home = () => {
               {t("11")}
             </div>
             <div className="li">{t("12")}</div>
-            <div className="li">{t("13")}</div>
+            <div className="li">{ranking === 1 ? t("13") : t("34")}</div>
           </div>
           <div className="box2-content-bottom">
             {/* {[1, 2, 3, 4, 5, 6].map((item, key) => (
