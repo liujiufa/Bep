@@ -31,7 +31,7 @@ export const useGetRewardBep = () => {
           showLoding(false);
           addMessage(t("Received successfully"));
           await closeFun();
-          setTimeout(() => callbackFun(), 5000);
+          setTimeout(() => callbackFun(), 1000);
         } else {
           addMessage(t("failed"));
           showLoding(false);

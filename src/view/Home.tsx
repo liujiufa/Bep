@@ -55,7 +55,7 @@ const Home = () => {
   const [IdoAccountInfo, setIdoAccountInfo] = useState<any>({});
   const { getReward } = useGetRewardBep();
   const getRewardFun = (amount: any) => {
-    getReward(2, getData, () => {}, "RewardDistribute");
+    getReward(2, getData(), () => {}, "RewardDistribute");
   };
 
   return (
