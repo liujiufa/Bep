@@ -22,18 +22,22 @@ export const useGetRewardBep = () => {
     }).then(async (res: any) => {
       showLoding(true);
       if (res?.code === 200) {
-        let resed = await Contracts.example.RewardDistributeBep(
-          account as string,
-          res?.data,
-          contractName
-        );
-        if (resed?.status) {
-          showLoding(false);
-          addMessage(t("Received successfully"));
-          await closeFun();
-          setTimeout(() => callbackFun(), 1000);
-        } else {
-          addMessage(t("failed"));
+        try {
+          let resed = await Contracts.example.RewardDistributeBep(
+            account as string,
+            res?.data,
+            contractName
+          );
+          if (resed?.status) {
+            showLoding(false);
+            addMessage(t("Received successfully"));
+            await closeFun();
+            setTimeout(() => callbackFun(), 1000);
+          } else {
+            addMessage(t("failed"));
+            showLoding(false);
+          }
+        } catch (error) {
           showLoding(false);
         }
       } else {
