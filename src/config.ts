@@ -52,11 +52,11 @@ export const abiObj: abiObjType = {
 
 export const Main: contractAddressType = {
   USDT: "0x55d398326f99059fF775485246999027B3197955",
-  TOKEN: "0xfAF18E53F52122085a8743e2bfb324c0577b98B5",
+  TOKEN: "0xA1A15C1806e6B33b65fFAb1A417eb0c07AA6c2e6",
   Stake: "0x1F04eb30cf5e8e3B367ba5a1AbFbD928a917e4f7",
   PassNft: "0x8c386214CDc77b8c62066e31f0271afB1F0AE1a7",
-  Ido: "0xE891a92d6B83020e6302c5c5F6D981c0A1eD14Fb",
-  RewardDistribute: "0xE791D45b8630a207A4F535099063e4e1702947d5",
+  Ido: "0x07060a292AE0DD1dB22eab09855a363a3bE33943",
+  RewardDistribute: "0x932D38c8cDc1AA14ffcC86576Cc1d2db3a35817A",
 };
 
 const Test = {
@@ -64,8 +64,8 @@ const Test = {
   TOKEN: "0xFAAd8b932C73545834eA9dB548707eC60cDcc2a4", // bepToken
   Stake: "0x71085fb90ADDF878F936589cF12B8772212e58c4",
   PassNft: "0xb6E7b0249becEc75D44843B7Ab62EFaA1E1D403D",
-  Ido: "0x59b8bEa9aCFcf212B7f1a8CB98A4CE912B5c7496",
-  RewardDistribute: "0xE791D45b8630a207A4F535099063e4e1702947d5",
+  Ido: "0x59b8bEa9aCFcf212B7f1a8CB98A4CE912B5c7496", // 领取推荐奖励
+  RewardDistribute: "0xE791D45b8630a207A4F535099063e4e1702947d5", // 领取推荐奖励
 };
 
 export const contractAddress: contractAddressType = isMain ? Main : Test;
