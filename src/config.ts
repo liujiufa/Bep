@@ -6,12 +6,12 @@ import RewardDistribute from "./ABI/RewardDistribute.json";
 
 // 正式
 export const LOCAL_KEY = "MBAS_LANG";
-export const isMain = false;
+export const isMain = true;
 // 自己 /api
 export let baseUrl: string = isMain
-  ? window.location.origin + "/user/"
+  ? "https://bep60.com/api/"
   : // : "http://192.168.1.37:18889";
-    "https://bep60.com/api";
+    window.location.origin + "/user/";
 export let ContractUrl: string = isMain
   ? "https://bscscan.com/address/"
   : "https://testnet.bscscan.com/address/";
@@ -52,11 +52,11 @@ export const abiObj: abiObjType = {
 
 export const Main: contractAddressType = {
   USDT: "0x55d398326f99059fF775485246999027B3197955",
-  TOKEN: "0xA1A15C1806e6B33b65fFAb1A417eb0c07AA6c2e6",
+  TOKEN: "0x9E8EE1de3affEEa3A799B73982D0a74bFFade069",
   Stake: "0x1F04eb30cf5e8e3B367ba5a1AbFbD928a917e4f7",
   PassNft: "0x8c386214CDc77b8c62066e31f0271afB1F0AE1a7",
-  Ido: "0x07060a292AE0DD1dB22eab09855a363a3bE33943",
-  RewardDistribute: "0x932D38c8cDc1AA14ffcC86576Cc1d2db3a35817A",
+  Ido: "0x793C9cB08C4f90D1154156bFDD3a9c09E4263BD2",
+  RewardDistribute: " 0x20DD8dD6A27469A88d9e88cd5C53534e066643f5",
 };
 
 const Test = {
