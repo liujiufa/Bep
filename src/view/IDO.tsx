@@ -453,7 +453,7 @@ const Invite = () => {
                           4
                         ) * 100
                       : 0
-                  }`,
+                  }%`,
                 }}
               ></div>
             </ProcessBox>
@@ -469,9 +469,9 @@ const Invite = () => {
             %
           </ProcessContainer>
           {IdoInfo?.idoNum && Number(IdoInfo?.idoNum) > 0 ? (
-            <>
-              <ToBtnContainer>
-                <Btn active={false}>{t("27")}</Btn>{" "}
+            <div>
+              {/* <ToBtnContainer>
+                <Btn active={false}>{t("27")}</Btn>
                 <span
                   onClick={() => {
                     setRecordModal(true);
@@ -479,7 +479,7 @@ const Invite = () => {
                 >
                   {t("28")} <ToGoIcon />
                 </span>
-              </ToBtnContainer>
+              </ToBtnContainer> */}
               <Btn
                 active={true}
                 onClick={() => {
@@ -488,11 +488,12 @@ const Invite = () => {
               >
                 {t("59")}
               </Btn>
-            </>
+            </div>
           ) : (
             <>
               <ToBtnContainer>
                 <Btn
+                  style={{ display: "none" }}
                   active={true}
                   onClick={async (event: any) => {
                     event.stopPropagation();
@@ -510,6 +511,7 @@ const Invite = () => {
               </ToBtnContainer>
             </>
           )}
+          <br />
           <img src={BuyContainerBg} alt="" />
         </BuyContainer>
       </AllContainer>
