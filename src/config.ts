@@ -56,7 +56,7 @@ export const Main: contractAddressType = {
   Stake: "0x1F04eb30cf5e8e3B367ba5a1AbFbD928a917e4f7",
   PassNft: "0x8c386214CDc77b8c62066e31f0271afB1F0AE1a7",
   Ido: "0x793C9cB08C4f90D1154156bFDD3a9c09E4263BD2",
-  RewardDistribute: " 0x20DD8dD6A27469A88d9e88cd5C53534e066643f5",
+  RewardDistribute: "0x20DD8dD6A27469A88d9e88cd5C53534e066643f5",
 };
 
 const Test = {
