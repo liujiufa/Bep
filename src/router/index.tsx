@@ -14,7 +14,7 @@ export default function Router() {
       <Routes>
         <Route path="/*" element={<MainLayout />}>
           <Route path=":address/">
-            <Route index element={<IDO />}></Route>
+            <Route index element={<Home />}></Route>
             <Route path="IDO" element={<IDO />}></Route>
           </Route>
           <Route path="account" element={<Account />}></Route>
