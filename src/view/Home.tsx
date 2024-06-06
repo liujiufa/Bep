@@ -58,6 +58,13 @@ const Home = () => {
     getReward(2, getData(), () => {}, "RewardDistribute");
   };
 
+  // 转换为十亿为单位的数值
+  const numberFormat = (num: any) => {
+    let wanValue: any = num / 1000000000;
+    wanValue = wanValue.toFixed(0);
+    return wanValue + "B";
+  };
+
   return (
     <div className="home w-full">
       <div className="title1">{t("6")}</div>
@@ -65,17 +72,17 @@ const Home = () => {
         <div className="trading">{t("1")}</div>
         <div className="box1-content">
           <div className="left">
-            <div className="num1">{tradeData?.todayTradeNum?.toFixed(0)}</div>
+            <div className="num1">{tradeData?.todayTradeNum?.toFixed(2)}</div>
             <div className="num2">{t("8")}</div>
           </div>
           <div className="left" style={{ width: "93px", height: "103px" }}>
-            <div className="num1">{tradeData?.totalTradeNum?.toFixed(0)}</div>
+            <div className="num1">{tradeData?.totalTradeNum?.toFixed(2)}</div>
             <div className="num2" style={{ top: "93px" }}>
               {t("7")}
             </div>
           </div>
           <div className="left">
-            <div className="num1">{tradeData?.myTradeNum?.toFixed(0)}</div>
+            <div className="num1">{tradeData?.myTradeNum?.toFixed(2)}</div>
             <div className="num2">{t("8_1")}</div>
           </div>
         </div>
